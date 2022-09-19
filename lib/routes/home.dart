@@ -12,42 +12,57 @@ class HomePage extends StatelessWidget {
         body: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset('assets/quiz.svg', fit: BoxFit.contain, width: 150),
-          const Divider(),
-          const SizedBox(height: 32),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text('Welcome to QuizU',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26)),
-            ],
+          Flexible(
+            flex: 6,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                SvgPicture.asset('assets/quiz.svg',
+                    fit: BoxFit.contain, width: 180),
+                const SizedBox(height: 8),
+                const Divider(),
+              ],
+            ),
           ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Flexible(
-                  child: Text(
-                'Are you ready to test your knowledge and challenge others?',
-                style: theme.textTheme.bodyText1,
-                textAlign: TextAlign.center,
-              ))
-            ],
-          ),
-          const SizedBox(height: 16),
-          ElevatedButton(onPressed: () {}, child: const Text("Start Quiz")),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Flexible(
-                  child: Text(
-                'Answer as much question correctly within 2 minutes',
-                style: Theme.of(context).textTheme.bodyText2,
-                textAlign: TextAlign.center,
-              ))
-            ],
+          Flexible(
+            flex: 4,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text('Welcome to QuizU',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 26)),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Flexible(
+                        child: Text(
+                      'Are you ready to test your knowledge and challenge others?',
+                      style: theme.textTheme.bodyText1,
+                      textAlign: TextAlign.center,
+                    ))
+                  ],
+                ),
+                ElevatedButton(
+                    onPressed: () {}, child: const Text("Start Quiz!")),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(
+                        child: Text(
+                      'Answer as much questions correctly within 2 minutes',
+                      style: theme.textTheme.bodyText2,
+                      textAlign: TextAlign.center,
+                    ))
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),

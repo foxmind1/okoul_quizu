@@ -22,6 +22,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: _pages[_selectedIndex],
@@ -29,9 +30,9 @@ class _HomeState extends State<Home> {
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
         child: GNav(
           backgroundColor: Colors.white,
-          color: Theme.of(context).primaryColorLight,
-          activeColor: Theme.of(context).primaryColorDark,
-          tabBackgroundColor: Theme.of(context).highlightColor,
+          color: theme.primaryColorLight,
+          activeColor: theme.primaryColorDark,
+          tabBackgroundColor: theme.highlightColor,
           padding: const EdgeInsets.all(16),
           gap: 8,
           onTabChange: (index) {
@@ -57,20 +58,4 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-}
-
-Widget home(BuildContext context) {
-  return Scaffold(
-      body: Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('Welcome to QuizU',
-              style: Theme.of(context).primaryTextTheme.bodyText1),
-        ],
-      ),
-    ],
-  ));
 }
