@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:okoul_quizu/routes/otp.dart';
+import 'package:okoul_quizu/home_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class NamePage extends StatelessWidget {
+  const NamePage({Key? key}) : super(key: key);
 
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    final controller = TextEditingController();
     final ThemeData theme = Theme.of(context);
-
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
@@ -52,35 +46,27 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Flexible(
                         child: Text(
-                      'Log in and start your journey now!',
+                      "What's your name?",
                       style: theme.textTheme.bodyText1,
                       textAlign: TextAlign.center,
                     ))
                   ],
                 ),
-                IntlPhoneField(
+                TextField(
+                  controller: controller,
                   decoration: const InputDecoration(
-                    // labelText: 'Phone Number',
-                    hintText: 'Phone Number',
-                    counterText: '',
-                    // counter: Offstage(),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                    ),
+                    border: OutlineInputBorder(),
+                    hintText: 'Name',
                   ),
-                  initialCountryCode: 'SA',
-                  // showCursor: false,
-                  // disableLengthCheck: true,
-                  onChanged: (phone) {
-                    print(phone.completeNumber);
-                  },
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const OtpPage()));
+                      //TODO: Check if not empty first
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (context) => const Home()),
+                          (Route<dynamic> route) => false);
                     },
-                    child: const Text("Start!")),
+                    child: const Text("Lets Go!")),
               ],
             ),
           ),

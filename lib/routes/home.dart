@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:okoul_quizu/routes/quiz.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -49,7 +50,17 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
                 ElevatedButton(
-                    onPressed: () {}, child: const Text("Start Quiz!")),
+                    onPressed: () {
+                      //TODO: What to do if user leaves in the middle of the quiz
+
+                      // Navigator.of(context).pushAndRemoveUntil(
+                      //     MaterialPageRoute(
+                      //         builder: (context) => const QuizPage()),
+                      //     (Route<dynamic> route) => false);
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const QuizPage()));
+                    },
+                    child: const Text("Start Quiz!")),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
