@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:okoul_quizu/home_page.dart';
-import 'package:okoul_quizu/routes/home.dart';
 import 'package:okoul_quizu/routes/name.dart';
 import 'package:pinput/pinput.dart';
 
@@ -69,7 +67,7 @@ class _OtpPageState extends State<OtpPage> {
                   child: Pinput(
                     length: 4,
                     controller: controller,
-                    onCompleted: (value) => print(value),
+                    onCompleted: (value) => debugPrint(value),
                     validator: (value) =>
                         value == '0000' ? null : 'Pin is Incorrect',
                   ),

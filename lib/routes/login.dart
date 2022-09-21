@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                   // showCursor: false,
                   // disableLengthCheck: true,
                   onChanged: (phone) {
-                    print(phone.completeNumber);
+                    debugPrint(phone.completeNumber);
                   },
                 ),
                 ElevatedButton(
