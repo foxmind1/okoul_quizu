@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
             ),
             GButton(
               icon: Icons.leaderboard,
-              text: 'Leaderboards',
+              text: 'Leaderboard',
             ),
             GButton(
               icon: Icons.account_circle,

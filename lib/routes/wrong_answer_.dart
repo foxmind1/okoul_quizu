@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:okoul_quizu/home_page.dart';
 
-class ScorePage extends StatelessWidget {
-  const ScorePage({Key? key}) : super(key: key);
+import '../home_page.dart';
+
+class WrongAnswerPage extends StatelessWidget {
+  const WrongAnswerPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,21 +30,16 @@ class ScorePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              "Congratulations",
+              "Wrong answer, Sorry :(",
               style: theme.textTheme.headline4,
+              textAlign: TextAlign.center,
             ),
             SvgPicture.asset(
-              'assets/score.svg',
+              'assets/wrong.svg',
               fit: BoxFit.contain,
               width: 200,
             ),
-            Text(
-              'You have completed 10 questions correctly!',
-              style: theme.textTheme.headline6,
-              textAlign: TextAlign.center,
-            ),
-            IconButton(
-                iconSize: 46, onPressed: () {}, icon: const Icon(Icons.share))
+            ElevatedButton(onPressed: () {}, child: const Text('Try again'))
           ],
         ),
       ),

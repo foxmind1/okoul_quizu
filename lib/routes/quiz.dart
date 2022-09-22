@@ -2,6 +2,7 @@ import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:okoul_quizu/home_page.dart';
 import 'package:okoul_quizu/routes/score.dart';
+import 'package:okoul_quizu/routes/wrong_answer_.dart';
 
 import '../models/question.dart';
 
@@ -54,14 +55,15 @@ class _QuizPageState extends State<QuizPage> {
                         // debugPrint('Countdown Started');
                       },
                       onComplete: () {
-                        //TODO: Go to score page and check if still active after wrong answer
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
                                 builder: (context) => const ScorePage()),
                             (Route<dynamic> route) => false);
+                        _index = 0;
                       },
                       onChange: (String timeStamp) {
                         // debugPrint('Countdown Changed $timeStamp');
+                        //TODO: Maybe use this to check if user finished all questions
                       },
                     ),
                   ],
@@ -100,12 +102,18 @@ class _QuizPageState extends State<QuizPage> {
                                     child: OutlinedButton(
                                       onPressed: () {
                                         //TODO: Check if last answer go to score page
-                                        if (isCorrect(
-                                            questions[_index].getCorrect,
-                                            'a')) {
+                                        if (questions[_index].getCorrect ==
+                                            'a') {
                                           setState(() {
                                             _index += 1;
                                           });
+                                        } else {
+                                          Navigator.of(context).pushAndRemoveUntil(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const WrongAnswerPage()),
+                                              (Route<dynamic> route) => false);
+                                          _index = 0;
                                         }
                                       },
                                       style: questionOptionStyle(),
@@ -118,12 +126,18 @@ class _QuizPageState extends State<QuizPage> {
                                     width: double.infinity,
                                     child: OutlinedButton(
                                       onPressed: () {
-                                        if (isCorrect(
-                                            questions[_index].getCorrect,
-                                            'b')) {
+                                        if (questions[_index].getCorrect ==
+                                            'b') {
                                           setState(() {
                                             _index += 1;
                                           });
+                                        } else {
+                                          Navigator.of(context).pushAndRemoveUntil(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const WrongAnswerPage()),
+                                              (Route<dynamic> route) => false);
+                                          _index = 0;
                                         }
                                       },
                                       style: questionOptionStyle(),
@@ -136,12 +150,18 @@ class _QuizPageState extends State<QuizPage> {
                                     width: double.infinity,
                                     child: OutlinedButton(
                                       onPressed: () {
-                                        if (isCorrect(
-                                            questions[_index].getCorrect,
-                                            'c')) {
+                                        if (questions[_index].getCorrect ==
+                                            'c') {
                                           setState(() {
                                             _index += 1;
                                           });
+                                        } else {
+                                          Navigator.of(context).pushAndRemoveUntil(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const WrongAnswerPage()),
+                                              (Route<dynamic> route) => false);
+                                          _index = 0;
                                         }
                                       },
                                       style: questionOptionStyle(),
@@ -154,12 +174,18 @@ class _QuizPageState extends State<QuizPage> {
                                     width: double.infinity,
                                     child: OutlinedButton(
                                       onPressed: () {
-                                        if (isCorrect(
-                                            questions[_index].getCorrect,
-                                            'd')) {
+                                        if (questions[_index].getCorrect ==
+                                            'd') {
                                           setState(() {
                                             _index += 1;
                                           });
+                                        } else {
+                                          Navigator.of(context).pushAndRemoveUntil(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const WrongAnswerPage()),
+                                              (Route<dynamic> route) => false);
+                                          _index = 0;
                                         }
                                       },
                                       style: questionOptionStyle(),
@@ -208,8 +234,4 @@ ButtonStyle questionOptionStyle() {
     shape: MaterialStateProperty.all(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0))),
   );
-}
-
-bool isCorrect(String correctAnswer, String userAnswer) {
-  return userAnswer == correctAnswer;
 }
