@@ -1,6 +1,5 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:okoul_quizu/home_page.dart';
 import 'package:okoul_quizu/routes/score.dart';
 import 'package:okoul_quizu/routes/wrong_answer_.dart';
 

@@ -57,28 +57,7 @@ class HomePage extends StatelessWidget {
                     onPressed: () async {
                       startQuiz(context);
 
-                      // var response = await http.get(
-                      //     Uri.parse("https://quizu.okoul.com/Questions"),
-                      //     headers: {
-                      //       'Authorization':
-                      //           'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ODUsImlhdCI6MTY2MzYyNTQ0Nn0.gMAHzu4YuoPjk2VASG5d-JlL6fIp6uhtXzyH4kx6gro'
-                      //     });
-
-                      // if (response.statusCode == 200) {
-                      //   debugPrint("${jsonDecode(response.body)}");
-                      //   Navigator.of(context).push(MaterialPageRoute(
-                      //       builder: (context) =>
-                      //           QuizPage(questions: [response.body])));
-                      // } else {
-                      //   debugPrint("${response.statusCode}");
-                      // }
-
                       //TODO: What to do if user leaves in the middle of the quiz
-
-                      // Navigator.of(context).pushAndRemoveUntil(
-                      //     MaterialPageRoute(
-                      //         builder: (context) => const QuizPage()),
-                      //     (Route<dynamic> route) => false);
                     },
                     child: const Text("Start Quiz!")),
                 Row(

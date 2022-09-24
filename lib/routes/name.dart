@@ -1,9 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:okoul_quizu/home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
-class NamePage extends StatelessWidget {
+class NamePage extends StatefulWidget {
   const NamePage({Key? key}) : super(key: key);
+
+  @override
+  State<NamePage> createState() => _NamePageState();
+}
+
+class _NamePageState extends State<NamePage> {
+  final formKey = GlobalKey<FormState>();
+  late SharedPreferences preferences;
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  Future init() async {
+    preferences = await SharedPreferences.getInstance();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,26 +65,40 @@ class NamePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Flexible(
-                        child: Text(
-                      "What's your name?",
-                      style: theme.textTheme.bodyText1,
-                      textAlign: TextAlign.center,
-                    ))
+                        child: Text("What's your name?",
+                            style: theme.textTheme.bodyText1,
+                            textAlign: TextAlign.center))
                   ],
                 ),
-                TextField(
-                  controller: controller,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Name',
+                Form(
+                  key: formKey,
+                  child: TextFormField(
+                    controller: controller,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) =>
+                        value!.trim() == '' ? 'Name can\'t be empty' : null,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Name',
+                    ),
                   ),
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      //TODO: Check if not empty first
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => const Home()),
-                          (Route<dynamic> route) => false);
+                      bool isNotEmpty = formKey.currentState!.validate();
+                      if (isNotEmpty) {
+                        http.post(Uri.parse("https://quizu.okoul.com/Name"),
+                            body: {
+                              "name": controller.text
+                            },
+                            headers: {
+                              'Authorization': preferences.getString('token')!
+                            });
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) => const Home()),
+                            (Route<dynamic> route) => false);
+                      }
                     },
                     child: const Text("Lets Go!")),
               ],

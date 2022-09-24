@@ -43,6 +43,8 @@ dependencies:
   pinput: ^2.2.12
   circular_countdown_timer: ^0.2.2
   http: ^0.13.5
+  phone_number: ^1.0.0
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:

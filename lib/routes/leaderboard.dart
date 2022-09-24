@@ -15,7 +15,7 @@ class LeaderboardPage extends StatelessWidget {
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             const SizedBox(height: 32),
             Text("Leaderboard", style: theme.textTheme.headline4),
-            const SizedBox(height: 32),
+            const SizedBox(height: 16),
             ListTile(
               title: Row(
                 children: [
