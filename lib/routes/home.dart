@@ -85,7 +85,7 @@ void startQuiz(BuildContext context, [bool mounted = true]) async {
       await http.get(Uri.parse("https://quizu.okoul.com/Questions"), headers: {
     'Authorization':
         'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ODUsImlhdCI6MTY2MzYyNTQ0Nn0.gMAHzu4YuoPjk2VASG5d-JlL6fIp6uhtXzyH4kx6gro'
-  });
+  }); //TODO: use the new token from prefs
 
   if (!mounted) return;
 

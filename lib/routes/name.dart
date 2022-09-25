@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:okoul_quizu/home_page.dart';
+import 'package:okoul_quizu/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,17 +14,17 @@ class NamePage extends StatefulWidget {
 
 class _NamePageState extends State<NamePage> {
   final formKey = GlobalKey<FormState>();
-  late SharedPreferences preferences;
+  // late SharedPreferences preferences;
 
-  @override
-  void initState() {
-    super.initState();
-    init();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // init();
+  // }
 
-  Future init() async {
-    preferences = await SharedPreferences.getInstance();
-  }
+  // Future init() async {
+  //   preferences = await SharedPreferences.getInstance();
+  // }
 
   @override
   Widget build(BuildContext context) {

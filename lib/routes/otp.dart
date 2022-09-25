@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:okoul_quizu/main.dart';
 import 'package:okoul_quizu/routes/name.dart';
 import 'package:pinput/pinput.dart';
 import 'package:http/http.dart' as http;
@@ -21,17 +22,17 @@ class _OtpPageState extends State<OtpPage> {
   final controller = TextEditingController();
   final formKey = GlobalKey<FormState>();
   bool hasValidOtp = false;
-  late SharedPreferences preferences;
+  // late SharedPreferences preferences;
 
-  @override
-  void initState() {
-    super.initState();
-    init();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // init();
+  // }
 
-  Future init() async {
-    preferences = await SharedPreferences.getInstance();
-  }
+  // Future init() async {
+  //   preferences = await SharedPreferences.getInstance();
+  // }
 
   Future checkOtp() async {
     var response = await http.post(Uri.parse("https://quizu.okoul.com/Login"),
