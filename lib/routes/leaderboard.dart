@@ -10,7 +10,7 @@ class LeaderboardPage extends StatelessWidget {
   Future getLeaderboard() async {
     var response = await http.get(
         Uri.parse('https://quizu.okoul.com/TopScores'),
-        headers: {'Authorization': preferences.getString('token') as String});
+        headers: {'Authorization': "Bearer ${preferences.getString('token')}"});
 
     return jsonDecode(response.body);
   }

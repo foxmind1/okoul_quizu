@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:okoul_quizu/home_page.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ScorePage extends StatelessWidget {
-  const ScorePage({Key? key}) : super(key: key);
+  final String numOfCorrect;
+  const ScorePage({Key? key, required this.numOfCorrect}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +40,17 @@ class ScorePage extends StatelessWidget {
               width: 200,
             ),
             Text(
-              'You have completed 10 questions correctly!',
+              'You have completed $numOfCorrect questions correctly!',
               style: theme.textTheme.headline6,
               textAlign: TextAlign.center,
             ),
             IconButton(
-                iconSize: 46, onPressed: () {}, icon: const Icon(Icons.share))
+                iconSize: 46,
+                onPressed: () async {
+                  await Share.share(
+                      'I answered $numOfCorrect correct answers in QuizU!');
+                },
+                icon: const Icon(Icons.share))
           ],
         ),
       ),

@@ -54,9 +54,11 @@ class _QuizPageState extends State<QuizPage> {
                         // debugPrint('Countdown Started');
                       },
                       onComplete: () {
+                        int current = _index;
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
-                                builder: (context) => const ScorePage()),
+                                builder: (context) =>
+                                    ScorePage(numOfCorrect: '$current')),
                             (Route<dynamic> route) => false);
                         _index = 0;
                       },

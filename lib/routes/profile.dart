@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:okoul_quizu/main.dart';
 import 'package:okoul_quizu/routes/login.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -15,6 +16,7 @@ class ProfilePage extends StatelessWidget {
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) => const LoginPage()),
                   (Route<dynamic> route) => false);
+              preferences.remove('token');
             },
             icon: Icon(Icons.logout, color: theme.colorScheme.primary),
           )
