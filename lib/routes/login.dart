@@ -32,8 +32,8 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 SvgPicture.asset('assets/login.svg',
                     fit: BoxFit.contain, width: 350),
-                const SizedBox(height: 8),
-                const Divider(),
+                const SizedBox(height: 16),
+                // const Divider(),
               ],
             ),
           ),
@@ -89,7 +89,8 @@ class _LoginPageState extends State<LoginPage> {
                     },
                   ),
                 ),
-                ElevatedButton(
+                ElevatedButton.icon(
+                    icon: const Icon(Icons.navigate_next),
                     onPressed: () async {
                       bool isValid = formKey.currentState!.validate();
 
@@ -100,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                         ));
                       }
                     },
-                    child: const Text("Start!")),
+                    label: const Text("Start!")),
               ],
             ),
           ),

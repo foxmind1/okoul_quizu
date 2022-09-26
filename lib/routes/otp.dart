@@ -6,7 +6,6 @@ import 'package:okoul_quizu/main.dart';
 import 'package:okoul_quizu/routes/name.dart';
 import 'package:pinput/pinput.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../home_page.dart';
 
@@ -22,26 +21,13 @@ class _OtpPageState extends State<OtpPage> {
   final controller = TextEditingController();
   final formKey = GlobalKey<FormState>();
   bool hasValidOtp = false;
-  // late SharedPreferences preferences;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // init();
-  // }
-
-  // Future init() async {
-  //   preferences = await SharedPreferences.getInstance();
-  // }
 
   Future checkOtp() async {
-    var response = await http.post(Uri.parse("https://quizu.okoul.com/Login"),
-        body: {"OTP": controller.text, "mobile": '0555555555'});
-
-    //TODO: UNCOMMENT THIS
-
     // var response = await http.post(Uri.parse("https://quizu.okoul.com/Login"),
-    //     body: {"OTP": controller.text, "mobile": widget.phoneNumber});
+    //     body: {"OTP": controller.text, "mobile": '0555555555'});
+
+    var response = await http.post(Uri.parse("https://quizu.okoul.com/Login"),
+        body: {"OTP": controller.text, "mobile": widget.phoneNumber});
 
     var data = jsonDecode(response.body);
 
@@ -75,8 +61,8 @@ class _OtpPageState extends State<OtpPage> {
               children: [
                 SvgPicture.asset('assets/login.svg',
                     fit: BoxFit.contain, width: 350),
-                const SizedBox(height: 8),
-                const Divider(),
+                const SizedBox(height: 16),
+                // const Divider(),
               ],
             ),
           ),
@@ -121,7 +107,8 @@ class _OtpPageState extends State<OtpPage> {
                         return hasValidOtp ? null : 'Pin is incorrect';
                       }),
                 )),
-                ElevatedButton(
+                ElevatedButton.icon(
+                    icon: const Icon(Icons.check),
                     onPressed: () async {
                       var result = await checkOtp();
                       bool isCorrect = formKey.currentState!.validate();
@@ -141,7 +128,7 @@ class _OtpPageState extends State<OtpPage> {
                         preferences.setString('token', result['token']);
                       }
                     },
-                    child: const Text("Check")),
+                    label: const Text("Check")),
               ],
             ),
           ),

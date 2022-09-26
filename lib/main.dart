@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'QuizU',
       themeMode: ThemeMode.light,
       theme: FlexThemeData.light(scheme: FlexScheme.brandBlue),
       darkTheme: FlexThemeData.dark(scheme: FlexScheme.brandBlue),
@@ -53,13 +53,14 @@ class MyApp extends StatelessWidget {
             case ConnectionState.done:
             default:
               if (snapshot.hasError) {
-                return Scaffold(
-                  body: Center(child: Text(snapshot.error.toString())),
-                );
+                return const Scaffold(
+                    body: Center(
+                        child: Text(
+                            "Problem has occurred please try again later")));
               } else if (snapshot.hasData) {
                 return snapshot.data ? const Home() : const LoginPage();
               } else {
-                return const Text('No data');
+                return const Center(child: Text('No data'));
               }
           }
         },

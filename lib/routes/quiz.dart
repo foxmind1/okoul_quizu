@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:okoul_quizu/routes/score.dart';
 import 'package:okoul_quizu/routes/wrong_answer_.dart';
+import 'package:http/http.dart' as http;
 
+import '../main.dart';
 import '../models/question.dart';
 
 class QuizPage extends StatefulWidget {
@@ -14,6 +18,7 @@ class QuizPage extends StatefulWidget {
 }
 
 int _index = 0;
+bool _isClicked = false;
 
 class _QuizPageState extends State<QuizPage> {
   @override
@@ -21,7 +26,9 @@ class _QuizPageState extends State<QuizPage> {
     final ThemeData theme = Theme.of(context);
     var questions = widget.questions;
 
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
         backgroundColor: theme.colorScheme.tertiary,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
@@ -33,38 +40,26 @@ class _QuizPageState extends State<QuizPage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CircularCountDownTimer(
-                      duration: 5,
+                      duration: 120,
                       initialDuration: 0,
                       controller: CountDownController(),
                       width: MediaQuery.of(context).size.width / 5.5,
                       height: MediaQuery.of(context).size.height / 5.5,
-                      // ringColor: Colors.grey[300]!,
-                      ringColor: Colors.white,
+                      // ringColor: Colors.white,
+                      ringColor: theme.colorScheme.background,
                       fillColor: theme.colorScheme.primary,
                       backgroundColor: theme.colorScheme.primary,
                       strokeWidth: 8.0,
-                      textStyle: const TextStyle(
+                      textStyle: TextStyle(
                           fontSize: 20.0,
-                          color: Colors.white,
+                          // color: Colors.white,
+                          color: theme.colorScheme.background,
                           fontWeight: FontWeight.bold),
                       textFormat: CountdownTextFormat.MM_SS,
                       isReverse: true,
                       autoStart: true,
-                      onStart: () {
-                        // debugPrint('Countdown Started');
-                      },
                       onComplete: () {
-                        int current = _index;
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ScorePage(numOfCorrect: '$current')),
-                            (Route<dynamic> route) => false);
-                        _index = 0;
-                      },
-                      onChange: (String timeStamp) {
-                        // debugPrint('Countdown Changed $timeStamp');
-                        //TODO: Maybe use this to check if user finished all questions
+                        saveUserScore(context);
                       },
                     ),
                   ],
@@ -102,19 +97,19 @@ class _QuizPageState extends State<QuizPage> {
                                     width: double.infinity,
                                     child: OutlinedButton(
                                       onPressed: () {
-                                        //TODO: Check if last answer go to score page
                                         if (questions[_index].getCorrect ==
                                             'a') {
-                                          setState(() {
+                                          if (_index != questions.length - 1) {
+                                            setState(() {
+                                              _index += 1;
+                                            });
+                                          } else {
                                             _index += 1;
-                                          });
+                                            saveUserScore(context);
+                                          }
                                         } else {
-                                          Navigator.of(context).pushAndRemoveUntil(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const WrongAnswerPage()),
-                                              (Route<dynamic> route) => false);
-                                          _index = 0;
+                                          goToWrongPage(context);
+                                          reset();
                                         }
                                       },
                                       style: questionOptionStyle(),
@@ -129,16 +124,17 @@ class _QuizPageState extends State<QuizPage> {
                                       onPressed: () {
                                         if (questions[_index].getCorrect ==
                                             'b') {
-                                          setState(() {
+                                          if (_index != questions.length - 1) {
+                                            setState(() {
+                                              _index += 1;
+                                            });
+                                          } else {
                                             _index += 1;
-                                          });
+                                            saveUserScore(context);
+                                          }
                                         } else {
-                                          Navigator.of(context).pushAndRemoveUntil(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const WrongAnswerPage()),
-                                              (Route<dynamic> route) => false);
-                                          _index = 0;
+                                          goToWrongPage(context);
+                                          reset();
                                         }
                                       },
                                       style: questionOptionStyle(),
@@ -153,16 +149,17 @@ class _QuizPageState extends State<QuizPage> {
                                       onPressed: () {
                                         if (questions[_index].getCorrect ==
                                             'c') {
-                                          setState(() {
+                                          if (_index != questions.length - 1) {
+                                            setState(() {
+                                              _index += 1;
+                                            });
+                                          } else {
                                             _index += 1;
-                                          });
+                                            saveUserScore(context);
+                                          }
                                         } else {
-                                          Navigator.of(context).pushAndRemoveUntil(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const WrongAnswerPage()),
-                                              (Route<dynamic> route) => false);
-                                          _index = 0;
+                                          goToWrongPage(context);
+                                          reset();
                                         }
                                       },
                                       style: questionOptionStyle(),
@@ -177,16 +174,17 @@ class _QuizPageState extends State<QuizPage> {
                                       onPressed: () {
                                         if (questions[_index].getCorrect ==
                                             'd') {
-                                          setState(() {
+                                          if (_index != questions.length - 1) {
+                                            setState(() {
+                                              _index += 1;
+                                            });
+                                          } else {
                                             _index += 1;
-                                          });
+                                            saveUserScore(context);
+                                          }
                                         } else {
-                                          Navigator.of(context).pushAndRemoveUntil(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const WrongAnswerPage()),
-                                              (Route<dynamic> route) => false);
-                                          _index = 0;
+                                          goToWrongPage(context);
+                                          reset();
                                         }
                                       },
                                       style: questionOptionStyle(),
@@ -199,14 +197,25 @@ class _QuizPageState extends State<QuizPage> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        ElevatedButton(
-                                          onPressed: () {},
+                                        ElevatedButton.icon(
+                                          icon: const Icon(Icons.skip_next),
+                                          onPressed: _isClicked
+                                              ? null
+                                              : () {
+                                                  if (_index !=
+                                                      questions.length - 1) {
+                                                    setState(() {
+                                                      _index += 1;
+                                                      _isClicked = true;
+                                                    });
+                                                  }
+                                                },
                                           style: ButtonStyle(
                                               backgroundColor:
                                                   MaterialStateProperty.all(
                                                       theme.colorScheme
                                                           .tertiary)),
-                                          child: const Text("Skip"),
+                                          label: const Text("Skip"),
                                         ),
                                       ],
                                     ),
@@ -223,7 +232,9 @@ class _QuizPageState extends State<QuizPage> {
               ),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 
@@ -235,4 +246,42 @@ ButtonStyle questionOptionStyle() {
     shape: MaterialStateProperty.all(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0))),
   );
+}
+
+void goToWrongPage(BuildContext context) {
+  Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const WrongAnswerPage()),
+      (Route<dynamic> route) => false);
+}
+
+void reset() {
+  _index = 0;
+  _isClicked = false;
+}
+
+void saveUserScore(BuildContext context) {
+  DateTime now = DateTime.now();
+  DateTime date = DateTime(now.year, now.month, now.day);
+
+  var currentScores = preferences.getStringList('user_scores') ?? [];
+
+  int current = _isClicked ? _index - 1 : _index;
+
+  Map<String, dynamic> newScore = {
+    "date": date.toString().substring(0, 10),
+    "score": "$current"
+  };
+
+  currentScores.add(jsonEncode(newScore));
+  preferences.setStringList('user_scores', currentScores);
+
+  Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+          builder: (context) => ScorePage(numOfCorrect: '$current')),
+      (Route<dynamic> route) => false);
+  http.post(Uri.parse("https://quizu.okoul.com/Score"),
+      body: {'score': "$current"},
+      headers: {'Authorization': "Bearer ${preferences.getString('token')}"});
+
+  reset();
 }

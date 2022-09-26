@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:okoul_quizu/home_page.dart';
 import 'package:okoul_quizu/main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class NamePage extends StatefulWidget {
@@ -14,17 +13,6 @@ class NamePage extends StatefulWidget {
 
 class _NamePageState extends State<NamePage> {
   final formKey = GlobalKey<FormState>();
-  // late SharedPreferences preferences;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // init();
-  // }
-
-  // Future init() async {
-  //   preferences = await SharedPreferences.getInstance();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +30,8 @@ class _NamePageState extends State<NamePage> {
               children: [
                 SvgPicture.asset('assets/login.svg',
                     fit: BoxFit.contain, width: 350),
-                const SizedBox(height: 8),
-                const Divider(),
+                const SizedBox(height: 16),
+                // const Divider(),
               ],
             ),
           ),
@@ -93,7 +81,8 @@ class _NamePageState extends State<NamePage> {
                               "name": controller.text
                             },
                             headers: {
-                              'Authorization': preferences.getString('token')!
+                              'Authorization':
+                                  'Bearer ${preferences.getString('token')}'
                             });
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(

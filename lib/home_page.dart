@@ -24,14 +24,14 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.colorScheme.background,
       body: _pages[_selectedIndex],
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
         child: GNav(
-          backgroundColor: Colors.white,
-          color: theme.primaryColorLight,
-          activeColor: theme.primaryColorDark,
+          backgroundColor: theme.colorScheme.background,
+          color: theme.primaryColor.withAlpha(200),
+          activeColor: theme.primaryColor,
           tabBackgroundColor: theme.highlightColor,
           padding: const EdgeInsets.all(16),
           gap: 8,

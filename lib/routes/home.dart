@@ -6,6 +6,8 @@ import 'package:okoul_quizu/models/question.dart';
 import 'package:okoul_quizu/routes/quiz.dart';
 import 'package:http/http.dart' as http;
 
+import '../main.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -25,8 +27,8 @@ class HomePage extends StatelessWidget {
               children: [
                 SvgPicture.asset('assets/quiz.svg',
                     fit: BoxFit.contain, width: 180),
-                const SizedBox(height: 8),
-                const Divider(),
+                const SizedBox(height: 16),
+                // const Divider(),
               ],
             ),
           ),
@@ -53,19 +55,18 @@ class HomePage extends StatelessWidget {
                     ))
                   ],
                 ),
-                ElevatedButton(
+                ElevatedButton.icon(
+                    icon: const Icon(Icons.start),
                     onPressed: () async {
                       startQuiz(context);
-
-                      //TODO: What to do if user leaves in the middle of the quiz
                     },
-                    child: const Text("Start Quiz!")),
+                    label: const Text("Start Quiz!")),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Flexible(
                         child: Text(
-                      'Answer as much questions correctly within 2 minutes',
+                      'Answer as much questions correctly within 2 minutes\n\n*You can skip only one question',
                       style: theme.textTheme.bodyText2,
                       textAlign: TextAlign.center,
                     ))
@@ -81,11 +82,8 @@ class HomePage extends StatelessWidget {
 }
 
 void startQuiz(BuildContext context, [bool mounted = true]) async {
-  var response =
-      await http.get(Uri.parse("https://quizu.okoul.com/Questions"), headers: {
-    'Authorization':
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ODUsImlhdCI6MTY2MzYyNTQ0Nn0.gMAHzu4YuoPjk2VASG5d-JlL6fIp6uhtXzyH4kx6gro'
-  }); //TODO: use the new token from prefs
+  var response = await http.get(Uri.parse("https://quizu.okoul.com/Questions"),
+      headers: {'Authorization': 'Bearer ${preferences.getString('token')}'});
 
   if (!mounted) return;
 

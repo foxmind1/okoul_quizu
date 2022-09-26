@@ -32,64 +32,58 @@ class LeaderboardPage extends StatelessWidget {
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             const SizedBox(height: 32),
             Text("Leaderboard", style: theme.textTheme.headline4),
-            // const SizedBox(height: 16),
-            // ListTile(
-            //   title: Row(
-            //     children: [
-            //       Expanded(child: Text('#', style: theme.textTheme.bodyText2)),
-            //       Expanded(
-            //           child: Text('Name', style: theme.textTheme.bodyText2)),
-            //       const Expanded(child: Text('')),
-            //       const Expanded(child: Text('')),
-            //     ],
-            //   ),
-            //   trailing: Text('Score', style: theme.textTheme.bodyText2),
-            // ),
             FutureBuilder(
-                future: getLeaderboard(),
-                builder: ((context, snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return Column(
+              future: getLeaderboard(),
+              builder: ((context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return Column(
+                      children: const [
+                        SizedBox(height: 250),
+                        Center(child: CircularProgressIndicator()),
+                      ],
+                    );
+                  case ConnectionState.done:
+                  default:
+                    if (snapshot.hasError || snapshot.data is! List) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
-                          SizedBox(height: 250),
-                          Center(child: CircularProgressIndicator()),
+                          SizedBox(height: 500),
+                          Text("Problem has occurred please try again later"),
                         ],
                       );
-                    case ConnectionState.done:
-                    default:
-                      if (snapshot.hasError) {
-                        return const Text("ERROR");
-                      } else if (snapshot.hasData) {
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: snapshot.data.length,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                ListTile(
-                                  leading: index >= 3
-                                      ? Text("${index + 1}")
-                                      : Icon(Icons.workspace_premium,
-                                          color: colors[index]),
-                                  title: Text(
-                                      snapshot.data[index]['name'].toString()),
-                                  trailing: Text(
-                                      snapshot.data[index]['score'].toString()),
-                                ),
-                                index == 2
-                                    ? const Divider(thickness: 2.5)
-                                    : const Divider()
-                              ],
-                            );
-                          },
-                        );
-                      } else {
-                        return const Text('No data');
-                      }
-                  }
-                })),
+                    } else if (snapshot.hasData) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshot.data.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              ListTile(
+                                leading: index >= 3
+                                    ? Text("${index + 1}")
+                                    : Icon(Icons.workspace_premium,
+                                        color: colors[index]),
+                                title: Text(
+                                    snapshot.data[index]['name'].toString()),
+                                trailing: Text(
+                                    snapshot.data[index]['score'].toString()),
+                              ),
+                              index == 2
+                                  ? const Divider(thickness: 2.5)
+                                  : const Divider()
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      return const Text('No data');
+                    }
+                }
+              }),
+            ),
           ]),
         ),
       ),
