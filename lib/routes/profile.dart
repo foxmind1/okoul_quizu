@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:okoul_quizu/home_page.dart';
 import 'package:okoul_quizu/main.dart';
 import 'package:okoul_quizu/routes/login.dart';
 import 'package:http/http.dart' as http;
@@ -18,7 +20,13 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+
     var scoreData = preferences.getStringList('user_scores') ?? [];
+    double inc = 0;
+    List listOfScores = [];
+    for (var scoreItem in scoreData) {
+      listOfScores.add(jsonDecode(scoreItem));
+    }
 
     return Scaffold(
       body: Padding(
@@ -39,6 +47,7 @@ class ProfilePage extends StatelessWidget {
                             (Route<dynamic> route) => false);
                         preferences.remove('token');
                         preferences.remove('user_scores');
+                        selectedIndex = 0;
                       },
                       icon: const Icon(Icons.logout),
                       label: const Text("Logout"))
@@ -84,6 +93,69 @@ class ProfilePage extends StatelessWidget {
               // const Divider(),
               const SizedBox(height: 32),
               Text('Your scores', style: theme.textTheme.headline4),
+              const SizedBox(height: 32),
+              if (scoreData.isNotEmpty && scoreData.length > 1)
+                SizedBox(
+                  width: 500,
+                  height: 200,
+                  child: LineChart(LineChartData(
+                    minY: 0,
+                    maxY: 30,
+                    clipData: FlClipData(
+                        top: true, bottom: true, left: true, right: true),
+                    backgroundColor:
+                        theme.colorScheme.tertiary.withOpacity(0.15),
+                    borderData: FlBorderData(show: false),
+                    titlesData: FlTitlesData(
+                        bottomTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false)),
+                        topTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false)),
+                        // leftTitles: AxisTitles(
+                        //     sideTitles: SideTitles(showTitles: false),
+                        //     axisNameWidget: Text("")),
+                        rightTitles: AxisTitles(
+                            axisNameWidget: const Text(""),
+                            sideTitles: SideTitles(showTitles: false))),
+                    gridData: FlGridData(
+                      show: true,
+                      drawVerticalLine: false,
+                      getDrawingHorizontalLine: (value) {
+                        return FlLine(
+                          color: theme.colorScheme.tertiary.withOpacity(0.2),
+                          strokeWidth: 1,
+                        );
+                      },
+                    ),
+                    lineBarsData: [
+                      LineChartBarData(
+                          spots: [
+                            ...listOfScores.map((item) {
+                              inc++;
+                              return FlSpot(
+                                  inc, int.parse(item['score']).toDouble());
+                            }).toList()
+                          ],
+                          isCurved: true,
+                          gradient: LinearGradient(
+                            colors: [
+                              theme.colorScheme.tertiary,
+                              theme.colorScheme.secondary
+                            ],
+                          ),
+                          belowBarData: BarAreaData(
+                            show: true,
+                            gradient: LinearGradient(
+                              colors: [
+                                theme.colorScheme.tertiary.withOpacity(0.25),
+                                theme.colorScheme.secondary.withOpacity(0.25)
+                              ],
+                            ),
+                          ),
+                          dotData: FlDotData(show: false)),
+                    ],
+                  )),
+                ),
               if (scoreData.isNotEmpty)
                 ListView.builder(
                   shrinkWrap: true,

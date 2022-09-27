@@ -11,7 +11,7 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-int _selectedIndex = 0;
+int selectedIndex = 0;
 
 class _HomeState extends State<Home> {
   final List<Widget> _pages = [
@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       backgroundColor: theme.colorScheme.background,
-      body: _pages[_selectedIndex],
+      body: _pages[selectedIndex],
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
         child: GNav(
@@ -37,7 +37,7 @@ class _HomeState extends State<Home> {
           gap: 8,
           onTabChange: (index) {
             setState(() {
-              _selectedIndex = index;
+              selectedIndex = index;
             });
           },
           tabs: const [

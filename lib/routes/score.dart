@@ -29,10 +29,26 @@ class ScorePage extends StatelessWidget {
                     icon: Icon(Icons.close, color: theme.colorScheme.primary))
               ],
             ),
-            Text(
-              "Congratulations",
-              style: theme.textTheme.headline4,
-            ),
+            if (int.parse(numOfCorrect) > 15)
+              Text(
+                "Well done!",
+                style: theme.textTheme.headline4,
+              )
+            else if (int.parse(numOfCorrect) > 10)
+              Text(
+                "Really good!",
+                style: theme.textTheme.headline4,
+              )
+            else if (int.parse(numOfCorrect) > 5)
+              Text(
+                "Not bad!",
+                style: theme.textTheme.headline4,
+              )
+            else
+              Text(
+                "You can do better!",
+                style: theme.textTheme.headline4,
+              ),
             SvgPicture.asset(
               'assets/score.svg',
               fit: BoxFit.contain,
