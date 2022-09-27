@@ -47,6 +47,7 @@ class ProfilePage extends StatelessWidget {
                             (Route<dynamic> route) => false);
                         preferences.remove('token');
                         preferences.remove('user_scores');
+                        preferences.remove('show_home');
                         selectedIndex = 0;
                       },
                       icon: const Icon(Icons.logout),

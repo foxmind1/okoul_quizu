@@ -47,6 +47,7 @@ dependencies:
   shared_preferences: ^2.0.15
   share_plus: ^4.4.0
   fl_chart: ^0.55.2
+  introduction_screen: ^3.0.2
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +77,9 @@ flutter:
     - assets/login.svg
     - assets/score.svg
     - assets/wrong.svg
+    - assets/welcome.svg
+    - assets/everyone.svg
+    - assets/time.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
