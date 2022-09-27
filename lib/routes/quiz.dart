@@ -29,13 +29,15 @@ class _QuizPageState extends State<QuizPage> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        backgroundColor: theme.colorScheme.tertiary,
+        // backgroundColor: theme.colorScheme.tertiary,
+        backgroundColor: theme.colorScheme.primary,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
           child: Column(
+            // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Flexible(
-                flex: 2,
+                flex: 3,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -45,14 +47,12 @@ class _QuizPageState extends State<QuizPage> {
                       controller: CountDownController(),
                       width: MediaQuery.of(context).size.width / 5.5,
                       height: MediaQuery.of(context).size.height / 5.5,
-                      // ringColor: Colors.white,
                       ringColor: theme.colorScheme.background,
-                      fillColor: theme.colorScheme.primary,
+                      fillColor: theme.colorScheme.secondary,
                       backgroundColor: theme.colorScheme.primary,
                       strokeWidth: 8.0,
                       textStyle: TextStyle(
                           fontSize: 20.0,
-                          // color: Colors.white,
                           color: theme.colorScheme.background,
                           fontWeight: FontWeight.bold),
                       textFormat: CountdownTextFormat.MM_SS,
@@ -74,7 +74,7 @@ class _QuizPageState extends State<QuizPage> {
                       children: [
                         Flexible(
                             child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.65,
+                          height: MediaQuery.of(context).size.height * 0.55,
                           child: Card(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16)),
@@ -82,16 +82,14 @@ class _QuizPageState extends State<QuizPage> {
                               padding: const EdgeInsets.all(16.0),
                               child: Column(
                                 children: [
-                                  Text(
-                                    'Question ${_index + 1}',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 22),
-                                  ),
                                   const SizedBox(height: 32),
-                                  Text(questions[_index].getQuestion,
-                                      style: theme.textTheme.headline6,
-                                      textAlign: TextAlign.start),
+                                  Text(
+                                      "Q${_index + 1}. ${questions[_index].getQuestion}",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: theme.primaryColorDark,
+                                          fontWeight: FontWeight.w500),
+                                      textAlign: TextAlign.center),
                                   const SizedBox(height: 32),
                                   SizedBox(
                                     width: double.infinity,
@@ -114,7 +112,10 @@ class _QuizPageState extends State<QuizPage> {
                                       },
                                       style: questionOptionStyle(),
                                       child: Text(
-                                          "A. ${questions[_index].getOptionA}"),
+                                        "A. ${questions[_index].getOptionA}",
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(height: 8),
@@ -139,7 +140,10 @@ class _QuizPageState extends State<QuizPage> {
                                       },
                                       style: questionOptionStyle(),
                                       child: Text(
-                                          "B. ${questions[_index].getOptionB}"),
+                                        "B. ${questions[_index].getOptionB}",
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(height: 8),
@@ -164,7 +168,10 @@ class _QuizPageState extends State<QuizPage> {
                                       },
                                       style: questionOptionStyle(),
                                       child: Text(
-                                          "C. ${questions[_index].getOptionC}"),
+                                        "C. ${questions[_index].getOptionC}",
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(height: 8),
@@ -189,7 +196,10 @@ class _QuizPageState extends State<QuizPage> {
                                       },
                                       style: questionOptionStyle(),
                                       child: Text(
-                                          "D. ${questions[_index].getOptionD}"),
+                                        "D. ${questions[_index].getOptionD}",
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
                                   ),
                                   Expanded(
@@ -214,7 +224,7 @@ class _QuizPageState extends State<QuizPage> {
                                               backgroundColor:
                                                   MaterialStateProperty.all(
                                                       theme.colorScheme
-                                                          .tertiary)),
+                                                          .primary)),
                                           label: const Text("Skip"),
                                         ),
                                       ],

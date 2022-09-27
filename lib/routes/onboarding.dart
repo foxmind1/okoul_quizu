@@ -17,19 +17,19 @@ class OnBoardingPage extends StatelessWidget {
             title: 'Welcome to QuizU',
             body: 'QuizU helps you test your knowledge across different topics',
             image: SvgPicture.asset("assets/welcome.svg"),
-            decoration: titleAndBodyDecoration()),
+            decoration: titleAndBodyDecoration(context)),
         PageViewModel(
             title: 'Challenge Everybody',
             body:
                 'Challenge everyone to get into the top 10 of the leaderboard',
             image: SvgPicture.asset("assets/everyone.svg"),
-            decoration: titleAndBodyDecoration()),
+            decoration: titleAndBodyDecoration(context)),
         PageViewModel(
-            title: '30 questions in 2 minutes',
+            title: '30 Questions in 2 minutes',
             body:
                 'Answer as much as you can,\nYou can also skip one question per quiz',
             image: SvgPicture.asset("assets/time.svg"),
-            decoration: titleAndBodyDecoration())
+            decoration: titleAndBodyDecoration(context))
       ],
       done: const Text('Done'),
       onDone: () {
@@ -52,11 +52,15 @@ class OnBoardingPage extends StatelessWidget {
   }
 }
 
-PageDecoration titleAndBodyDecoration() {
-  return const PageDecoration(
-      bodyPadding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-      titlePadding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+PageDecoration titleAndBodyDecoration(BuildContext context) {
+  return PageDecoration(
+      bodyPadding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+      titleTextStyle: TextStyle(
+          color: Theme.of(context).colorScheme.primary,
+          fontSize: 20,
+          fontWeight: FontWeight.bold),
+      titlePadding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
       bodyAlignment: Alignment.center,
       // imageAlignment: Alignment.center,
-      imagePadding: EdgeInsets.all(64));
+      imagePadding: const EdgeInsets.all(64));
 }

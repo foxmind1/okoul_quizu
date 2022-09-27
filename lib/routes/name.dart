@@ -42,11 +42,14 @@ class _NamePageState extends State<NamePage> {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text(
                       'Welcome to QuizU',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+                      // style:TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 26,
+                          color: theme.colorScheme.primary),
                     ),
                   ],
                 ),

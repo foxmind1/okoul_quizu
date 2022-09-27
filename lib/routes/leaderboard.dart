@@ -21,7 +21,7 @@ class LeaderboardPage extends StatelessWidget {
     List colors = [
       const Color.fromARGB(252, 232, 183, 7),
       const Color.fromARGB(251, 172, 183, 173),
-      const Color.fromARGB(250, 95, 55, 17)
+      const Color.fromARGB(250, 95, 55, 17),
     ];
 
     return Scaffold(
@@ -31,7 +31,11 @@ class LeaderboardPage extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             const SizedBox(height: 32),
-            Text("Leaderboard", style: theme.textTheme.headline4),
+            Text(
+              "Leaderboard",
+              // style: theme.textTheme.headline4
+              style: TextStyle(fontSize: 34, color: theme.colorScheme.primary),
+            ),
             FutureBuilder(
               future: getLeaderboard(),
               builder: ((context, snapshot) {
@@ -63,13 +67,21 @@ class LeaderboardPage extends StatelessWidget {
                             children: [
                               ListTile(
                                 leading: index >= 3
-                                    ? Text("${index + 1}")
+                                    ? Text("${index + 1}",
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w500))
                                     : Icon(Icons.workspace_premium,
                                         color: colors[index]),
                                 title: Text(
-                                    snapshot.data[index]['name'].toString()),
+                                    snapshot.data[index]['name'].toString(),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w400)),
                                 trailing: Text(
-                                    snapshot.data[index]['score'].toString()),
+                                  snapshot.data[index]['score'].toString(),
+                                  style: TextStyle(
+                                      color: theme.colorScheme.primary,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
                               index == 2
                                   ? const Divider(thickness: 2.5)

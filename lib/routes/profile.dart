@@ -54,47 +54,54 @@ class ProfilePage extends StatelessWidget {
                       label: const Text("Logout"))
                 ],
               ),
-              const SizedBox(height: 32),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Icon(Icons.account_circle_rounded,
-                      size: 110, color: theme.colorScheme.primary),
-                  FutureBuilder(
-                    future: getUserInfo(),
-                    builder: (context, snapshot) {
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.waiting:
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        case ConnectionState.done:
-                        default:
-                          if (snapshot.hasError ||
-                              snapshot.data['mobile'] == null) {
-                            return const Center(
-                                child: Text("Problem loading user data"));
-                          } else if (snapshot.hasData) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("${snapshot.data['name']}",
-                                    style: theme.textTheme.headline5),
-                                const SizedBox(height: 4),
-                                Text("${snapshot.data['mobile']}")
-                              ],
-                            );
-                          } else {
-                            return const Center(child: Text('No data'));
-                          }
+              const SizedBox(height: 8),
+              Icon(Icons.account_circle_rounded,
+                  size: 100, color: theme.colorScheme.primary),
+              const SizedBox(height: 16),
+              FutureBuilder(
+                future: getUserInfo(),
+                builder: (context, snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
+                      return const Center(child: CircularProgressIndicator());
+                    case ConnectionState.done:
+                    default:
+                      if (snapshot.hasError ||
+                          snapshot.data['mobile'] == null) {
+                        return const Center(
+                            child: Text("Problem loading user data"));
+                      } else if (snapshot.hasData) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "${snapshot.data['name']}",
+                              style: TextStyle(
+                                  fontSize: 32,
+                                  color: theme.colorScheme.primary),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              "${snapshot.data['mobile']}",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: theme.colorScheme.primary),
+                            ),
+                          ],
+                        );
+                      } else {
+                        return const Center(child: Text('No data'));
                       }
-                    },
-                  )
-                ],
+                  }
+                },
               ),
-              // const Divider(),
-              const SizedBox(height: 32),
-              Text('Your scores', style: theme.textTheme.headline4),
-              const SizedBox(height: 32),
+              const SizedBox(height: 16),
+              const Divider(thickness: 2.5),
+              const SizedBox(height: 16),
+              Text('Your scores',
+                  style: TextStyle(
+                      fontSize: 24, color: theme.colorScheme.primary)),
+              const SizedBox(height: 24),
               if (scoreData.isNotEmpty && scoreData.length > 1)
                 SizedBox(
                   width: 500,
@@ -112,9 +119,6 @@ class ProfilePage extends StatelessWidget {
                             sideTitles: SideTitles(showTitles: false)),
                         topTitles: AxisTitles(
                             sideTitles: SideTitles(showTitles: false)),
-                        // leftTitles: AxisTitles(
-                        //     sideTitles: SideTitles(showTitles: false),
-                        //     axisNameWidget: Text("")),
                         rightTitles: AxisTitles(
                             axisNameWidget: const Text(""),
                             sideTitles: SideTitles(showTitles: false))),
@@ -170,17 +174,28 @@ class ProfilePage extends StatelessWidget {
                     return Column(
                       children: [
                         if (index == 0)
-                          ListTile(
-                            title:
-                                Text('Date', style: theme.textTheme.bodyText2),
-                            trailing:
-                                Text('Score', style: theme.textTheme.bodyText2),
+                          const ListTile(
+                            title: Text(
+                              'Date',
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
+                            trailing: Text(
+                              'Score',
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
                           )
                         else
                           const SizedBox.shrink(),
                         ListTile(
-                            title: Text(scoreDataItems['date']),
-                            trailing: Text(scoreDataItems['score'])),
+                            title: Text(scoreDataItems['date'],
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w500)),
+                            trailing: Text(scoreDataItems['score'],
+                                style: TextStyle(
+                                    color: theme.colorScheme.primary,
+                                    fontWeight: FontWeight.w600))),
                         const Divider()
                       ],
                     );

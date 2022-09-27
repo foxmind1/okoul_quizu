@@ -44,11 +44,13 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text(
                       'Welcome to QuizU',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 26,
+                          color: theme.colorScheme.primary),
                     ),
                   ],
                 ),
@@ -76,7 +78,6 @@ class _LoginPageState extends State<LoginPage> {
                     decoration: const InputDecoration(
                       hintText: 'Phone Number',
                       counterText: '',
-                      // counter: Offstage(),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(),
                       ),

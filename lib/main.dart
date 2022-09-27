@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
       theme: FlexThemeData.light(scheme: FlexScheme.brandBlue),
       darkTheme: FlexThemeData.dark(scheme: FlexScheme.brandBlue),
       debugShowCheckedModeBanner: false,
-      home: showHome ? const TokenValidatePage() : const OnBoardingPage(),
+      // home: showHome ? const TokenValidatePage() : const OnBoardingPage(),
+      home: TokenValidatePage(),
     );
   }
 }

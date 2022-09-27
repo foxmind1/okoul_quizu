@@ -39,10 +39,15 @@ class HomePage extends StatelessWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text('Welcome to QuizU',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 26)),
+                  children: [
+                    Text(
+                      'Welcome to QuizU',
+                      // style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26)
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 26,
+                          color: theme.colorScheme.primary),
+                    ),
                   ],
                 ),
                 Row(
