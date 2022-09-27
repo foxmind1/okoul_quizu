@@ -34,8 +34,9 @@ class OnBoardingPage extends StatelessWidget {
       done: const Text('Done'),
       onDone: () {
         preferences.setBool('show_home', true);
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const TokenValidatePage()));
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => const TokenValidatePage()),
+            (Route<dynamic> route) => false);
       },
       showSkipButton: true,
       skip: const Text('Skip'),
