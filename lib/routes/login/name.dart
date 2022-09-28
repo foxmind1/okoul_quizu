@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:okoul_quizu/home_page.dart';
 import 'package:okoul_quizu/main.dart';
 import 'package:http/http.dart' as http;
+import 'package:okoul_quizu/constants.dart' as constants;
 
 class NamePage extends StatefulWidget {
   const NamePage({Key? key}) : super(key: key);
@@ -31,7 +32,6 @@ class _NamePageState extends State<NamePage> {
                 SvgPicture.asset('assets/login.svg',
                     fit: BoxFit.contain, width: 350),
                 const SizedBox(height: 16),
-                // const Divider(),
               ],
             ),
           ),
@@ -45,7 +45,6 @@ class _NamePageState extends State<NamePage> {
                   children: [
                     Text(
                       'Welcome to QuizU',
-                      // style:TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 26,
@@ -75,25 +74,24 @@ class _NamePageState extends State<NamePage> {
                     ),
                   ),
                 ),
-                ElevatedButton(
+                ElevatedButton.icon(
+                    icon: const Icon(Icons.arrow_forward_rounded),
                     onPressed: () {
                       bool isNotEmpty = formKey.currentState!.validate();
                       if (isNotEmpty) {
-                        http.post(Uri.parse("https://quizu.okoul.com/Name"),
-                            body: {
-                              "name": controller.text
-                            },
-                            headers: {
-                              'Authorization':
-                                  'Bearer ${preferences.getString('token')}'
-                            });
+                        http.post(Uri.parse(constants.apiName), body: {
+                          "name": controller.text
+                        }, headers: {
+                          'Authorization':
+                              'Bearer ${preferences.getString(constants.prefsTokenKey)}'
+                        });
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
                                 builder: (context) => const Home()),
                             (Route<dynamic> route) => false);
                       }
                     },
-                    child: const Text("Lets Go!")),
+                    label: const Text("Lets Go!")),
               ],
             ),
           ),

@@ -4,15 +4,18 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:okoul_quizu/home_page.dart';
 import 'package:okoul_quizu/main.dart';
-import 'package:okoul_quizu/routes/login.dart';
+import 'package:okoul_quizu/routes/login/login.dart';
 import 'package:http/http.dart' as http;
+import 'package:okoul_quizu/constants.dart' as constants;
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
   Future getUserInfo() async {
-    var response = await http.get(Uri.parse("https://quizu.okoul.com/UserInfo"),
-        headers: {'Authorization': 'Bearer ${preferences.getString('token')}'});
+    var response = await http.get(Uri.parse(constants.apiUserInfo), headers: {
+      'Authorization':
+          'Bearer ${preferences.getString(constants.prefsTokenKey)}'
+    });
 
     return jsonDecode(response.body);
   }
@@ -21,7 +24,8 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
 
-    var scoreData = preferences.getStringList('user_scores') ?? [];
+    var scoreData =
+        preferences.getStringList(constants.prefsUserScoreKey) ?? [];
     double inc = 0;
     List listOfScores = [];
     for (var scoreItem in scoreData) {
@@ -45,9 +49,9 @@ class ProfilePage extends StatelessWidget {
                             MaterialPageRoute(
                                 builder: (context) => const LoginPage()),
                             (Route<dynamic> route) => false);
-                        preferences.remove('token');
-                        preferences.remove('user_scores');
-                        preferences.remove('show_home');
+                        preferences.remove(constants.prefsTokenKey);
+                        preferences.remove(constants.prefsUserScoreKey);
+                        preferences.remove(constants.prefsShowHomeKey);
                         selectedIndex = 0;
                       },
                       icon: const Icon(Icons.logout),
@@ -168,7 +172,7 @@ class ProfilePage extends StatelessWidget {
                   itemCount: scoreData.length,
                   itemBuilder: (context, index) {
                     var scoreDataItems = jsonDecode(preferences
-                        .getStringList('user_scores')!
+                        .getStringList(constants.prefsUserScoreKey)!
                         .reversed
                         .toList()[index]);
                     return Column(

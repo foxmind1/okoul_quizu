@@ -12,7 +12,6 @@ class ScorePage extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       body: Padding(
-        // padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
         padding: const EdgeInsets.only(right: 32, left: 32, bottom: 32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -30,25 +29,21 @@ class ScorePage extends StatelessWidget {
               ],
             ),
             if (int.parse(numOfCorrect) > 15)
-              Text(
-                "Well done!",
-                style: theme.textTheme.headline4,
-              )
+              Text("Well done!",
+                  style:
+                      TextStyle(fontSize: 34, color: theme.colorScheme.primary))
             else if (int.parse(numOfCorrect) > 10)
-              Text(
-                "Really good!",
-                style: theme.textTheme.headline4,
-              )
+              Text("Really good!",
+                  style:
+                      TextStyle(fontSize: 34, color: theme.colorScheme.primary))
             else if (int.parse(numOfCorrect) > 5)
-              Text(
-                "Not bad!",
-                style: theme.textTheme.headline4,
-              )
+              Text("Not bad!",
+                  style:
+                      TextStyle(fontSize: 34, color: theme.colorScheme.primary))
             else
-              Text(
-                "You can do better!",
-                style: theme.textTheme.headline4,
-              ),
+              Text("You can do better!",
+                  style: TextStyle(
+                      fontSize: 34, color: theme.colorScheme.primary)),
             SvgPicture.asset(
               'assets/score.svg',
               fit: BoxFit.contain,

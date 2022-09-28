@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:okoul_quizu/routes/home.dart';
+import 'package:okoul_quizu/routes/home/home.dart';
 
-import '../home_page.dart';
+import '../../home_page.dart';
 
 class WrongAnswerPage extends StatelessWidget {
   const WrongAnswerPage({Key? key}) : super(key: key);
@@ -12,7 +12,6 @@ class WrongAnswerPage extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       body: Padding(
-        // padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
         padding: const EdgeInsets.only(right: 32, left: 32, bottom: 32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -31,7 +30,7 @@ class WrongAnswerPage extends StatelessWidget {
             ),
             Text(
               "Wrong answer, Sorry :(",
-              style: theme.textTheme.headline4,
+              style: TextStyle(fontSize: 34, color: theme.colorScheme.primary),
               textAlign: TextAlign.center,
             ),
             SvgPicture.asset(

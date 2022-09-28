@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:okoul_quizu/models/question.dart';
-import 'package:okoul_quizu/routes/quiz.dart';
+import 'package:okoul_quizu/routes/quiz/quiz.dart';
 import 'package:http/http.dart' as http;
+import 'package:okoul_quizu/constants.dart' as constants;
 
-import '../main.dart';
+import '../../main.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,7 +29,6 @@ class HomePage extends StatelessWidget {
                 SvgPicture.asset('assets/quiz.svg',
                     fit: BoxFit.contain, width: 180),
                 const SizedBox(height: 16),
-                // const Divider(),
               ],
             ),
           ),
@@ -42,7 +42,6 @@ class HomePage extends StatelessWidget {
                   children: [
                     Text(
                       'Welcome to QuizU',
-                      // style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26)
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 26,
@@ -87,8 +86,9 @@ class HomePage extends StatelessWidget {
 }
 
 void startQuiz(BuildContext context, [bool mounted = true]) async {
-  var response = await http.get(Uri.parse("https://quizu.okoul.com/Questions"),
-      headers: {'Authorization': 'Bearer ${preferences.getString('token')}'});
+  var response = await http.get(Uri.parse(constants.apiQuestions), headers: {
+    'Authorization': 'Bearer ${preferences.getString(constants.prefsTokenKey)}'
+  });
 
   if (!mounted) return;
 

@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../home_page.dart';
-import '../main.dart';
+import '../../home_page.dart';
+import '../../main.dart';
+import 'package:okoul_quizu/constants.dart' as constants;
 import 'login.dart';
 
 class TokenValidatePage extends StatelessWidget {
@@ -12,13 +13,13 @@ class TokenValidatePage extends StatelessWidget {
 
   Future isValidToken() async {
     var tokenIsAvailable =
-        preferences.getString('token') != null ? true : false;
+        preferences.getString(constants.prefsTokenKey) != null ? true : false;
 
     if (tokenIsAvailable) {
-      var response = await http.get(Uri.parse("https://quizu.okoul.com/Token"),
-          headers: {
-            'Authorization': 'Bearer ${preferences.getString('token')}'
-          });
+      var response = await http.get(Uri.parse(constants.apiToken), headers: {
+        'Authorization':
+            'Bearer ${preferences.getString(constants.prefsTokenKey)}'
+      });
 
       return jsonDecode(response.body)['success'];
     }

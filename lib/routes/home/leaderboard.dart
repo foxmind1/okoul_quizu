@@ -3,14 +3,16 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:okoul_quizu/main.dart';
+import 'package:okoul_quizu/constants.dart' as constants;
 
 class LeaderboardPage extends StatelessWidget {
   const LeaderboardPage({Key? key}) : super(key: key);
 
   Future getLeaderboard() async {
-    var response = await http.get(
-        Uri.parse('https://quizu.okoul.com/TopScores'),
-        headers: {'Authorization': "Bearer ${preferences.getString('token')}"});
+    var response = await http.get(Uri.parse(constants.apiTopScores), headers: {
+      'Authorization':
+          "Bearer ${preferences.getString(constants.prefsTokenKey)}"
+    });
 
     return jsonDecode(response.body);
   }
@@ -33,7 +35,6 @@ class LeaderboardPage extends StatelessWidget {
             const SizedBox(height: 32),
             Text(
               "Leaderboard",
-              // style: theme.textTheme.headline4
               style: TextStyle(fontSize: 34, color: theme.colorScheme.primary),
             ),
             FutureBuilder(

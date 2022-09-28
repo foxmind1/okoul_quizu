@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:okoul_quizu/routes/home.dart';
-import 'package:okoul_quizu/routes/leaderboard.dart';
-import 'package:okoul_quizu/routes/profile.dart';
+import 'package:okoul_quizu/routes/home/home.dart';
+import 'package:okoul_quizu/routes/home/leaderboard.dart';
+import 'package:okoul_quizu/routes/home/profile.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

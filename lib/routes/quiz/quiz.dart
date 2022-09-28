@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:okoul_quizu/routes/score.dart';
-import 'package:okoul_quizu/routes/wrong_answer_.dart';
+import 'package:okoul_quizu/routes/quiz/score.dart';
+import 'package:okoul_quizu/routes/quiz/wrong_answer_.dart';
 import 'package:http/http.dart' as http;
+import 'package:okoul_quizu/constants.dart' as constants;
 
-import '../main.dart';
-import '../models/question.dart';
+import '../../main.dart';
+import '../../models/question.dart';
 
 class QuizPage extends StatefulWidget {
   final List<Question> questions;
@@ -29,12 +30,10 @@ class _QuizPageState extends State<QuizPage> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        // backgroundColor: theme.colorScheme.tertiary,
         backgroundColor: theme.colorScheme.primary,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Flexible(
                 flex: 3,
@@ -273,7 +272,8 @@ void saveUserScore(BuildContext context) {
   DateTime now = DateTime.now();
   DateTime date = DateTime(now.year, now.month, now.day);
 
-  var currentScores = preferences.getStringList('user_scores') ?? [];
+  var currentScores =
+      preferences.getStringList(constants.prefsUserScoreKey) ?? [];
 
   int current = _isClicked ? _index - 1 : _index;
 
@@ -283,15 +283,17 @@ void saveUserScore(BuildContext context) {
   };
 
   currentScores.add(jsonEncode(newScore));
-  preferences.setStringList('user_scores', currentScores);
+  preferences.setStringList(constants.prefsUserScoreKey, currentScores);
 
   Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
           builder: (context) => ScorePage(numOfCorrect: '$current')),
       (Route<dynamic> route) => false);
-  http.post(Uri.parse("https://quizu.okoul.com/Score"),
-      body: {'score': "$current"},
-      headers: {'Authorization': "Bearer ${preferences.getString('token')}"});
+  http.post(Uri.parse(constants.apiUserScore), body: {
+    'score': "$current"
+  }, headers: {
+    'Authorization': "Bearer ${preferences.getString(constants.prefsTokenKey)}"
+  });
 
   reset();
 }

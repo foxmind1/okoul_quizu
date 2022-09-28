@@ -77,9 +77,9 @@ flutter:
     - assets/login.svg
     - assets/score.svg
     - assets/wrong.svg
-    - assets/welcome.svg
-    - assets/everyone.svg
-    - assets/time.svg
+    - assets/intro/welcome.svg
+    - assets/intro/everyone.svg
+    - assets/intro/time.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

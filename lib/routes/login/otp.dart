@@ -3,11 +3,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:okoul_quizu/main.dart';
-import 'package:okoul_quizu/routes/name.dart';
+import 'package:okoul_quizu/routes/login/name.dart';
 import 'package:pinput/pinput.dart';
 import 'package:http/http.dart' as http;
+import 'package:okoul_quizu/constants.dart' as constants;
 
-import '../home_page.dart';
+import '../../home_page.dart';
 
 class OtpPage extends StatefulWidget {
   final String phoneNumber;
@@ -23,10 +24,7 @@ class _OtpPageState extends State<OtpPage> {
   bool hasValidOtp = false;
 
   Future checkOtp() async {
-    // var response = await http.post(Uri.parse("https://quizu.okoul.com/Login"),
-    //     body: {"OTP": controller.text, "mobile": '0555555555'});
-
-    var response = await http.post(Uri.parse("https://quizu.okoul.com/Login"),
+    var response = await http.post(Uri.parse(constants.apiLogin),
         body: {"OTP": controller.text, "mobile": widget.phoneNumber});
 
     var data = jsonDecode(response.body);
@@ -62,7 +60,6 @@ class _OtpPageState extends State<OtpPage> {
                 SvgPicture.asset('assets/login.svg',
                     fit: BoxFit.contain, width: 350),
                 const SizedBox(height: 16),
-                // const Divider(),
               ],
             ),
           ),
@@ -76,8 +73,6 @@ class _OtpPageState extends State<OtpPage> {
                   children: [
                     Text(
                       'Welcome to QuizU',
-                      // style:
-                      //     TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 26,
@@ -90,7 +85,7 @@ class _OtpPageState extends State<OtpPage> {
                   children: [
                     Flexible(
                         child: Text(
-                      'Please enter the OTP we sent to your mobile ${widget.phoneNumber}',
+                      'Please enter the OTP we sent to your mobile: ${widget.phoneNumber}',
                       style: theme.textTheme.bodyText1,
                       textAlign: TextAlign.center,
                     ))
@@ -105,7 +100,6 @@ class _OtpPageState extends State<OtpPage> {
                       controller: controller,
                       autofocus: true,
                       closeKeyboardWhenCompleted: true,
-                      // onCompleted: (value) => debugPrint(value),
                       pinputAutovalidateMode: PinputAutovalidateMode.disabled,
                       validator: (value) {
                         return hasValidOtp ? null : 'Pin is incorrect';
@@ -129,7 +123,8 @@ class _OtpPageState extends State<OtpPage> {
                                   builder: (context) => const Home()),
                               (Route<dynamic> route) => false);
                         }
-                        preferences.setString('token', result['token']);
+                        preferences.setString(
+                            constants.prefsTokenKey, result['token']);
                       }
                     },
                     label: const Text("Check")),

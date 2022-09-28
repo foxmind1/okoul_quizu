@@ -1,8 +1,9 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:okoul_quizu/routes/onboarding.dart';
-import 'package:okoul_quizu/routes/token_check.dart';
+import 'package:okoul_quizu/routes/login/token_check.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'constants.dart' as constants;
 
 late SharedPreferences preferences;
 
@@ -18,15 +19,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var showHome = preferences.getBool('show_home') ?? false;
+    var showHome = preferences.getBool(constants.prefsShowHomeKey) ?? false;
     return MaterialApp(
       title: 'QuizU',
       themeMode: ThemeMode.light,
       theme: FlexThemeData.light(scheme: FlexScheme.brandBlue),
       darkTheme: FlexThemeData.dark(scheme: FlexScheme.brandBlue),
       debugShowCheckedModeBanner: false,
-      // home: showHome ? const TokenValidatePage() : const OnBoardingPage(),
-      home: TokenValidatePage(),
+      home: showHome ? const TokenValidatePage() : const OnBoardingPage(),
     );
   }
 }
