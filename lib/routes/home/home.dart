@@ -1,13 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:okoul_quizu/models/question.dart';
 import 'package:okoul_quizu/routes/quiz/quiz.dart';
-import 'package:http/http.dart' as http;
-import 'package:okoul_quizu/constants.dart' as constants;
-
-import '../../main.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -62,7 +55,9 @@ class HomePage extends StatelessWidget {
                 ElevatedButton.icon(
                     icon: const Icon(Icons.start),
                     onPressed: () async {
-                      startQuiz(context);
+                      // startQuiz(context);
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const QuizPage()));
                     },
                     label: const Text("Start Quiz!")),
                 Row(
@@ -82,28 +77,5 @@ class HomePage extends StatelessWidget {
         ],
       ),
     ));
-  }
-}
-
-void startQuiz(BuildContext context, [bool mounted = true]) async {
-  var response = await http.get(Uri.parse(constants.apiQuestions), headers: {
-    'Authorization': 'Bearer ${preferences.getString(constants.prefsTokenKey)}'
-  });
-
-  if (!mounted) return;
-
-  if (response.statusCode == 200) {
-    var data = jsonDecode(response.body) as List;
-
-    List<Question> questionList = [];
-    for (var question in data) {
-      questionList.add(Question(question['Question'], question['a'],
-          question['b'], question['c'], question['d'], question['correct']));
-    }
-
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => QuizPage(questions: questionList)));
-  } else {
-    debugPrint("${response.statusCode}");
   }
 }

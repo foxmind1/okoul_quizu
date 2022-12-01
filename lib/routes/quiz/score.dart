@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:okoul_quizu/home_page.dart';
+import 'package:okoul_quizu/nav_bar.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ScorePage extends StatelessWidget {
@@ -22,7 +22,8 @@ class ScorePage extends StatelessWidget {
                 IconButton(
                     onPressed: () {
                       Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => const Home()),
+                          MaterialPageRoute(
+                              builder: (context) => const NavBar()),
                           (Route<dynamic> route) => false);
                     },
                     icon: Icon(Icons.close, color: theme.colorScheme.primary))

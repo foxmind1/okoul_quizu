@@ -6,9 +6,9 @@ import 'package:okoul_quizu/main.dart';
 import 'package:okoul_quizu/routes/login/name.dart';
 import 'package:pinput/pinput.dart';
 import 'package:http/http.dart' as http;
-import 'package:okoul_quizu/constants.dart' as constants;
+import 'package:okoul_quizu/constants.dart';
 
-import '../../home_page.dart';
+import '../../nav_bar.dart';
 
 class OtpPage extends StatefulWidget {
   final String phoneNumber;
@@ -24,7 +24,7 @@ class _OtpPageState extends State<OtpPage> {
   bool hasValidOtp = false;
 
   Future checkOtp() async {
-    var response = await http.post(Uri.parse(constants.apiLogin),
+    var response = await http.post(Uri.parse(Constants.apiLogin),
         body: {"OTP": controller.text, "mobile": widget.phoneNumber});
 
     var data = jsonDecode(response.body);
@@ -120,11 +120,11 @@ class _OtpPageState extends State<OtpPage> {
                         } else if (result['message'] == 'Token returning!') {
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(
-                                  builder: (context) => const Home()),
+                                  builder: (context) => const NavBar()),
                               (Route<dynamic> route) => false);
                         }
                         preferences.setString(
-                            constants.prefsTokenKey, result['token']);
+                            Constants.prefsTokenKey, result['token']);
                       }
                     },
                     label: const Text("Check")),

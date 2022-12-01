@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:okoul_quizu/routes/home/home.dart';
+import 'package:okoul_quizu/routes/quiz/quiz.dart';
 
-import '../../home_page.dart';
+import '../../nav_bar.dart';
 
 class WrongAnswerPage extends StatelessWidget {
   const WrongAnswerPage({Key? key}) : super(key: key);
@@ -22,7 +22,8 @@ class WrongAnswerPage extends StatelessWidget {
                 IconButton(
                     onPressed: () {
                       Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => const Home()),
+                          MaterialPageRoute(
+                              builder: (context) => const NavBar()),
                           (Route<dynamic> route) => false);
                     },
                     icon: Icon(Icons.close, color: theme.colorScheme.primary))
@@ -40,7 +41,8 @@ class WrongAnswerPage extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  startQuiz(context);
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const QuizPage()));
                 },
                 child: const Text('Try again'))
           ],

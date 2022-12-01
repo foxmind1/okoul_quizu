@@ -4,16 +4,16 @@ import 'package:okoul_quizu/routes/home/home.dart';
 import 'package:okoul_quizu/routes/home/leaderboard.dart';
 import 'package:okoul_quizu/routes/home/profile.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class NavBar extends StatefulWidget {
+  const NavBar({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<NavBar> createState() => _NavBarState();
 }
 
 int selectedIndex = 0;
 
-class _HomeState extends State<Home> {
+class _NavBarState extends State<NavBar> {
   final List<Widget> _pages = [
     const HomePage(),
     const LeaderboardPage(),

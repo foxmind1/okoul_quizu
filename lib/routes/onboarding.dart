@@ -4,7 +4,7 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:okoul_quizu/routes/login/token_check.dart';
 
 import '../main.dart';
-import 'package:okoul_quizu/constants.dart' as constants;
+import 'package:okoul_quizu/constants.dart';
 
 class OnBoardingPage extends StatelessWidget {
   const OnBoardingPage({Key? key}) : super(key: key);
@@ -34,7 +34,7 @@ class OnBoardingPage extends StatelessWidget {
       ],
       done: const Text('Done'),
       onDone: () {
-        preferences.setBool(constants.prefsShowHomeKey, true);
+        preferences.setBool(Constants.prefsShowHomeKey, true);
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => const TokenValidatePage()),
             (Route<dynamic> route) => false);

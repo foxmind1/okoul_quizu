@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:okoul_quizu/home_page.dart';
+import 'package:okoul_quizu/nav_bar.dart';
 import 'package:okoul_quizu/main.dart';
 import 'package:http/http.dart' as http;
-import 'package:okoul_quizu/constants.dart' as constants;
+import 'package:okoul_quizu/constants.dart';
 
 class NamePage extends StatefulWidget {
   const NamePage({Key? key}) : super(key: key);
@@ -79,15 +79,15 @@ class _NamePageState extends State<NamePage> {
                     onPressed: () {
                       bool isNotEmpty = formKey.currentState!.validate();
                       if (isNotEmpty) {
-                        http.post(Uri.parse(constants.apiName), body: {
+                        http.post(Uri.parse(Constants.apiName), body: {
                           "name": controller.text
                         }, headers: {
                           'Authorization':
-                              'Bearer ${preferences.getString(constants.prefsTokenKey)}'
+                              'Bearer ${preferences.getString(Constants.prefsTokenKey)}'
                         });
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
-                                builder: (context) => const Home()),
+                                builder: (context) => const NavBar()),
                             (Route<dynamic> route) => false);
                       }
                     },

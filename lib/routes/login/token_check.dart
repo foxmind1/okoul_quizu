@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../../home_page.dart';
+import '../../nav_bar.dart';
 import '../../main.dart';
-import 'package:okoul_quizu/constants.dart' as constants;
+import 'package:okoul_quizu/constants.dart';
 import 'login.dart';
 
 class TokenValidatePage extends StatelessWidget {
@@ -13,12 +13,12 @@ class TokenValidatePage extends StatelessWidget {
 
   Future isValidToken() async {
     var tokenIsAvailable =
-        preferences.getString(constants.prefsTokenKey) != null ? true : false;
+        preferences.getString(Constants.prefsTokenKey) != null ? true : false;
 
     if (tokenIsAvailable) {
-      var response = await http.get(Uri.parse(constants.apiToken), headers: {
+      var response = await http.get(Uri.parse(Constants.apiToken), headers: {
         'Authorization':
-            'Bearer ${preferences.getString(constants.prefsTokenKey)}'
+            'Bearer ${preferences.getString(Constants.prefsTokenKey)}'
       });
 
       return jsonDecode(response.body)['success'];
@@ -46,7 +46,7 @@ class TokenValidatePage extends StatelessWidget {
                 ),
               );
             } else if (snapshot.hasData) {
-              return snapshot.data ? const Home() : const LoginPage();
+              return snapshot.data ? const NavBar() : const LoginPage();
             } else {
               return const Scaffold(
                 body: Center(

@@ -3,15 +3,15 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:okoul_quizu/main.dart';
-import 'package:okoul_quizu/constants.dart' as constants;
+import 'package:okoul_quizu/constants.dart';
 
 class LeaderboardPage extends StatelessWidget {
   const LeaderboardPage({Key? key}) : super(key: key);
 
   Future getLeaderboard() async {
-    var response = await http.get(Uri.parse(constants.apiTopScores), headers: {
+    var response = await http.get(Uri.parse(Constants.apiTopScores), headers: {
       'Authorization':
-          "Bearer ${preferences.getString(constants.prefsTokenKey)}"
+          "Bearer ${preferences.getString(Constants.prefsTokenKey)}"
     });
 
     return jsonDecode(response.body);
