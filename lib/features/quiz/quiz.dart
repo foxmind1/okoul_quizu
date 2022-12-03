@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:okoul_quizu/routes/quiz/providers/questions_provider.dart';
-import 'package:okoul_quizu/routes/quiz/widgets/countdown_timer_widget.dart';
-import 'package:okoul_quizu/routes/quiz/widgets/question_tile_widget.dart';
+import 'package:okoul_quizu/features/quiz/providers/questions_provider.dart';
+import 'package:okoul_quizu/features/quiz/widgets/countdown_timer_widget.dart';
+import 'package:okoul_quizu/features/quiz/widgets/question_tile_widget.dart';
 import 'package:provider/provider.dart';
 
 class QuizPage extends StatefulWidget {

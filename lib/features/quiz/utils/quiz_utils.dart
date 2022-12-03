@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:okoul_quizu/routes/quiz/providers/questions_provider.dart';
-import 'package:okoul_quizu/routes/quiz/score.dart';
+import 'package:okoul_quizu/features/quiz/providers/questions_provider.dart';
+import 'package:okoul_quizu/features/quiz/score.dart';
 import 'package:okoul_quizu/services/api_services.dart';
 import 'package:okoul_quizu/services/shared_prefs_services.dart';
 import 'package:provider/provider.dart';

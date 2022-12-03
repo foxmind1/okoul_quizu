@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:okoul_quizu/routes/login/name.dart';
+import 'package:okoul_quizu/features/login/name.dart';
 import 'package:okoul_quizu/services/api_services.dart';
 import 'package:okoul_quizu/services/shared_prefs_services.dart';
 import 'package:pinput/pinput.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:okoul_quizu/routes/home/home.dart';
-import 'package:okoul_quizu/routes/home/leaderboard.dart';
-import 'package:okoul_quizu/routes/home/profile.dart';
+import 'package:okoul_quizu/features/home/home.dart';
+import 'package:okoul_quizu/features/home/leaderboard.dart';
+import 'package:okoul_quizu/features/home/profile.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);

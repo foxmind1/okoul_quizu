@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:okoul_quizu/routes/quiz/providers/questions_provider.dart';
-import 'package:okoul_quizu/routes/quiz/utils/quiz_utils.dart';
-import 'package:okoul_quizu/routes/quiz/wrong_answer.dart';
+import 'package:okoul_quizu/features/quiz/providers/questions_provider.dart';
+import 'package:okoul_quizu/features/quiz/utils/quiz_utils.dart';
+import 'package:okoul_quizu/features/quiz/wrong_answer.dart';
 import 'package:provider/provider.dart';
 
 import 'package:okoul_quizu/models/question.dart';

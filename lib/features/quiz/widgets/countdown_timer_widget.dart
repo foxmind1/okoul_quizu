@@ -1,6 +1,6 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:okoul_quizu/routes/quiz/utils/quiz_utils.dart';
+import 'package:okoul_quizu/features/quiz/utils/quiz_utils.dart';
 
 class TimerWidget extends StatelessWidget {
   const TimerWidget({

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:okoul_quizu/routes/quiz/quiz.dart';
+import 'package:okoul_quizu/features/quiz/quiz.dart';
 
 import '../../nav_bar.dart';
 

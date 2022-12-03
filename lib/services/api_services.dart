@@ -49,15 +49,15 @@ class ApiServices {
         .toList();
   }
 
-  void getLeaderboard() {
-    http.get(
+  Future<http.Response> getLeaderboard() {
+    return http.get(
       Uri.parse(Constants.apiTopScores),
       headers: {'Authorization': "Bearer ${SharedPrefsServices().getToken}"},
     );
   }
 
-  void getUserInfo() {
-    http.get(
+  Future<http.Response> getUserInfo() {
+    return http.get(
       Uri.parse(Constants.apiUserInfo),
       headers: {'Authorization': 'Bearer ${SharedPrefsServices().getToken}'},
     );

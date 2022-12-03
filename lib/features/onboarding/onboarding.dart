@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:okoul_quizu/routes/login/token_check.dart';
+import 'package:okoul_quizu/features/login/token_check.dart';
 
-import '../main.dart';
+import '../../main.dart';
 import 'package:okoul_quizu/constants.dart';
 
 class OnBoardingPage extends StatelessWidget {

@@ -1,8 +1,8 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:okoul_quizu/routes/onboarding.dart';
-import 'package:okoul_quizu/routes/login/token_check.dart';
-import 'package:okoul_quizu/routes/quiz/providers/questions_provider.dart';
+import 'package:okoul_quizu/features/onboarding/onboarding.dart';
+import 'package:okoul_quizu/features/login/token_check.dart';
+import 'package:okoul_quizu/features/quiz/providers/questions_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'constants.dart';
