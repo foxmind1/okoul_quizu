@@ -2,13 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:okoul_quizu/main.dart';
 import 'package:okoul_quizu/routes/login/name.dart';
+import 'package:okoul_quizu/services/api_services.dart';
+import 'package:okoul_quizu/services/shared_prefs_services.dart';
 import 'package:pinput/pinput.dart';
-import 'package:http/http.dart' as http;
-import 'package:okoul_quizu/constants.dart';
-
-import '../../nav_bar.dart';
+import 'package:okoul_quizu/nav_bar.dart';
 
 class OtpPage extends StatefulWidget {
   final String phoneNumber;
@@ -21,25 +19,29 @@ class OtpPage extends StatefulWidget {
 class _OtpPageState extends State<OtpPage> {
   final controller = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  bool hasValidOtp = false;
+  bool _hasValidOtp = false;
 
   Future checkOtp() async {
-    var response = await http.post(Uri.parse(Constants.apiLogin),
-        body: {"OTP": controller.text, "mobile": widget.phoneNumber});
+    var response =
+        await ApiServices().login(controller.text, widget.phoneNumber);
 
     var data = jsonDecode(response.body);
 
     if (response.statusCode == 201) {
       debugPrint(response.body);
-      setState(() {
-        hasValidOtp = true;
-      });
+      setState(
+        () {
+          _hasValidOtp = true;
+        },
+      );
       return data;
     } else {
       debugPrint(response.body);
-      setState(() {
-        hasValidOtp = false;
-      });
+      setState(
+        () {
+          _hasValidOtp = false;
+        },
+      );
     }
   }
 
@@ -48,70 +50,68 @@ class _OtpPageState extends State<OtpPage> {
     final ThemeData theme = Theme.of(context);
 
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
-      child: Column(
-        children: [
-          Flexible(
-            flex: 6,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                SvgPicture.asset('assets/login.svg',
-                    fit: BoxFit.contain, width: 350),
-                const SizedBox(height: 16),
-              ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
+        child: Column(
+          children: [
+            Flexible(
+              flex: 6,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SvgPicture.asset(
+                    'assets/login.svg',
+                    fit: BoxFit.contain,
+                    width: 350,
+                  ),
+                  const SizedBox(height: 16),
+                ],
+              ),
             ),
-          ),
-          Flexible(
-            flex: 4,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Welcome to QuizU',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 26,
-                          color: theme.colorScheme.primary),
+            Flexible(
+              flex: 4,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Welcome to QuizU',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 26,
+                      color: theme.colorScheme.primary,
                     ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Flexible(
-                        child: Text(
+                  ),
+                  Flexible(
+                    child: Text(
                       'Please enter the OTP we sent to your mobile: ${widget.phoneNumber}',
                       style: theme.textTheme.bodyText1,
                       textAlign: TextAlign.center,
-                    ))
-                  ],
-                ),
-                SizedBox(
+                    ),
+                  ),
+                  SizedBox(
                     child: Form(
-                  autovalidateMode: AutovalidateMode.disabled,
-                  key: formKey,
-                  child: Pinput(
-                      length: 4,
-                      controller: controller,
-                      autofocus: true,
-                      closeKeyboardWhenCompleted: true,
-                      pinputAutovalidateMode: PinputAutovalidateMode.disabled,
-                      validator: (value) {
-                        return hasValidOtp ? null : 'Pin is incorrect';
-                      }),
-                )),
-                ElevatedButton.icon(
+                      autovalidateMode: AutovalidateMode.disabled,
+                      key: formKey,
+                      child: Pinput(
+                        length: 4,
+                        controller: controller,
+                        autofocus: true,
+                        closeKeyboardWhenCompleted: true,
+                        pinputAutovalidateMode: PinputAutovalidateMode.disabled,
+                        validator: (value) {
+                          return _hasValidOtp ? null : 'Pin is incorrect';
+                        },
+                      ),
+                    ),
+                  ),
+                  ElevatedButton.icon(
                     icon: const Icon(Icons.check),
                     onPressed: () async {
                       var result = await checkOtp();
-                      bool isCorrect = formKey.currentState!.validate();
+                      bool isValidOtp = formKey.currentState!.validate();
 
-                      if (isCorrect && mounted) {
+                      if (isValidOtp && mounted) {
                         if (result['message'] == 'user created!') {
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(
@@ -123,16 +123,17 @@ class _OtpPageState extends State<OtpPage> {
                                   builder: (context) => const NavBar()),
                               (Route<dynamic> route) => false);
                         }
-                        preferences.setString(
-                            Constants.prefsTokenKey, result['token']);
+                        SharedPrefsServices().setToken = result['token'];
                       }
                     },
-                    label: const Text("Check")),
-              ],
+                    label: const Text("Check"),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 }
