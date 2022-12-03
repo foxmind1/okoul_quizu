@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:okoul_quizu/nav_bar.dart';
+import 'package:okoul_quizu/features/login/views/login.dart';
+import 'package:okoul_quizu/features/home/views/home_page_nav_bar.dart';
 import 'package:okoul_quizu/features/home/widgets/score_chart_widget.dart';
-import 'package:okoul_quizu/features/login/login.dart';
 import 'package:okoul_quizu/services/api_services.dart';
 import 'package:okoul_quizu/services/shared_prefs_services.dart';
 
@@ -11,14 +11,14 @@ class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
   Future getUserInfo() async {
-    var response = await ApiServices().getUserInfo();
+    var response = await ApiServices.getUserInfo();
     return jsonDecode(response.body);
   }
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    var scoreData = SharedPrefsServices().getUserScore;
+    var scoreData = SharedPrefsServices.getUserScore;
 
     return Scaffold(
       body: Padding(
@@ -38,7 +38,7 @@ class ProfilePage extends StatelessWidget {
                               builder: (context) => const LoginPage()),
                           (Route<dynamic> route) => false);
 
-                      SharedPrefsServices().resetPrefs();
+                      SharedPrefsServices.resetPrefs();
                       selectedIndex = 0;
                     },
                     icon: const Icon(
@@ -126,10 +126,7 @@ class ProfilePage extends StatelessWidget {
                   itemCount: scoreData.length,
                   itemBuilder: (context, index) {
                     var scoreDataItems = jsonDecode(
-                      SharedPrefsServices()
-                          .getUserScore
-                          .reversed
-                          .toList()[index],
+                      SharedPrefsServices.getUserScore.reversed.toList()[index],
                     );
                     return Column(
                       children: [

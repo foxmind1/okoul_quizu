@@ -15,7 +15,7 @@ class QuestionsProvider extends ChangeNotifier {
   bool get hasSkipped => _hasSkipped;
 
   void fetchQuestions() async {
-    _questionsList = await ApiServices().getQuestions();
+    _questionsList = await ApiServices.getQuestions();
     notifyListeners();
   }
 

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:okoul_quizu/features/login/token_check.dart';
-
-import '../../main.dart';
-import 'package:okoul_quizu/constants.dart';
+import 'package:okoul_quizu/features/login/views/token_check.dart';
+import 'package:okoul_quizu/services/shared_prefs_services.dart';
 
 class OnBoardingPage extends StatelessWidget {
   const OnBoardingPage({Key? key}) : super(key: key);
@@ -34,7 +32,8 @@ class OnBoardingPage extends StatelessWidget {
       ],
       done: const Text('Done'),
       onDone: () {
-        preferences.setBool(Constants.prefsShowHomeKey, true);
+        SharedPrefsServices.setShowHome = true;
+
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => const TokenValidatePage()),
             (Route<dynamic> route) => false);
@@ -55,12 +54,13 @@ class OnBoardingPage extends StatelessWidget {
 
 PageDecoration titleAndBodyDecoration(BuildContext context) {
   return PageDecoration(
-      bodyPadding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-      titleTextStyle: TextStyle(
-          color: Theme.of(context).colorScheme.primary,
-          fontSize: 20,
-          fontWeight: FontWeight.bold),
-      titlePadding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-      bodyAlignment: Alignment.center,
-      imagePadding: const EdgeInsets.all(64));
+    bodyPadding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+    titleTextStyle: TextStyle(
+        color: Theme.of(context).colorScheme.primary,
+        fontSize: 20,
+        fontWeight: FontWeight.bold),
+    titlePadding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+    bodyAlignment: Alignment.center,
+    imagePadding: const EdgeInsets.all(64),
+  );
 }

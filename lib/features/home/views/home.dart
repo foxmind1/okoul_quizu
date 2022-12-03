@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:okoul_quizu/features/quiz/quiz.dart';
+import 'package:okoul_quizu/features/quiz/views/quiz.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

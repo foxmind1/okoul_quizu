@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:okoul_quizu/features/home/home.dart';
-import 'package:okoul_quizu/features/home/leaderboard.dart';
-import 'package:okoul_quizu/features/home/profile.dart';
+import 'package:okoul_quizu/features/home/views/home.dart';
+import 'package:okoul_quizu/features/home/views/leaderboard.dart';
+import 'package:okoul_quizu/features/home/views/profile.dart';
 
-class NavBar extends StatefulWidget {
-  const NavBar({Key? key}) : super(key: key);
+class HomePageNavBar extends StatefulWidget {
+  const HomePageNavBar({Key? key}) : super(key: key);
 
   @override
-  State<NavBar> createState() => _NavBarState();
+  State<HomePageNavBar> createState() => _HomePageNavBarState();
 }
 
 int selectedIndex = 0;
 
-class _NavBarState extends State<NavBar> {
+class _HomePageNavBarState extends State<HomePageNavBar> {
   final List<Widget> _pages = [
     const HomePage(),
     const LeaderboardPage(),

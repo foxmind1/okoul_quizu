@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:okoul_quizu/features/quiz/providers/questions_provider.dart';
-import 'package:okoul_quizu/features/quiz/score.dart';
+import 'package:okoul_quizu/features/quiz/views/score.dart';
 import 'package:okoul_quizu/services/api_services.dart';
 import 'package:okoul_quizu/services/shared_prefs_services.dart';
 import 'package:provider/provider.dart';
@@ -11,8 +11,8 @@ class QuizUtils {
     bool isClicked = context.read<QuestionsProvider>().hasSkipped;
     int score = isClicked ? index - 1 : index;
 
-    SharedPrefsServices().saveLocalUserScore(score);
-    ApiServices().insertScore(score);
+    SharedPrefsServices.saveLocalUserScore(score);
+    ApiServices.insertScore(score);
 
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(

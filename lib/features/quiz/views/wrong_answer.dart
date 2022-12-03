@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:okoul_quizu/features/quiz/quiz.dart';
-
-import '../../nav_bar.dart';
+import 'package:okoul_quizu/features/quiz/views/quiz.dart';
+import 'package:okoul_quizu/features/home/views/home_page_nav_bar.dart';
 
 class WrongAnswerPage extends StatelessWidget {
   const WrongAnswerPage({Key? key}) : super(key: key);
@@ -23,7 +22,7 @@ class WrongAnswerPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
-                              builder: (context) => const NavBar()),
+                              builder: (context) => const HomePageNavBar()),
                           (Route<dynamic> route) => false);
                     },
                     icon: Icon(Icons.close, color: theme.colorScheme.primary))

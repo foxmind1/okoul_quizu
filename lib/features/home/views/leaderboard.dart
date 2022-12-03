@@ -7,7 +7,7 @@ class LeaderboardPage extends StatelessWidget {
   const LeaderboardPage({Key? key}) : super(key: key);
 
   Future getLeaderboard() async {
-    var response = await ApiServices().getLeaderboard();
+    var response = await ApiServices.getLeaderboard();
     return jsonDecode(response.body);
   }
 

@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:okoul_quizu/features/login/name.dart';
+import 'package:okoul_quizu/features/login/views/name.dart';
 import 'package:okoul_quizu/services/api_services.dart';
 import 'package:okoul_quizu/services/shared_prefs_services.dart';
 import 'package:pinput/pinput.dart';
-import 'package:okoul_quizu/nav_bar.dart';
+import 'package:okoul_quizu/features/home/views/home_page_nav_bar.dart';
 
 class OtpPage extends StatefulWidget {
   final String phoneNumber;
@@ -22,8 +22,7 @@ class _OtpPageState extends State<OtpPage> {
   bool _hasValidOtp = false;
 
   Future checkOtp() async {
-    var response =
-        await ApiServices().login(controller.text, widget.phoneNumber);
+    var response = await ApiServices.login(controller.text, widget.phoneNumber);
 
     var data = jsonDecode(response.body);
 
@@ -120,10 +119,10 @@ class _OtpPageState extends State<OtpPage> {
                         } else if (result['message'] == 'Token returning!') {
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(
-                                  builder: (context) => const NavBar()),
+                                  builder: (context) => const HomePageNavBar()),
                               (Route<dynamic> route) => false);
                         }
-                        SharedPrefsServices().setToken = result['token'];
+                        SharedPrefsServices.setToken = result['token'];
                       }
                     },
                     label: const Text("Check"),

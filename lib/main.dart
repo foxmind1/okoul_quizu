@@ -1,11 +1,11 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:okoul_quizu/features/onboarding/onboarding.dart';
-import 'package:okoul_quizu/features/login/token_check.dart';
+import 'package:okoul_quizu/features/login/views/token_check.dart';
+import 'package:okoul_quizu/features/onboarding/views/onboarding.dart';
 import 'package:okoul_quizu/features/quiz/providers/questions_provider.dart';
+import 'package:okoul_quizu/services/shared_prefs_services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'constants.dart';
 
 late SharedPreferences preferences;
 
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var showHome = preferences.getBool(Constants.prefsShowHomeKey) ?? false;
+    var showHome = SharedPrefsServices.getShowHome;
     return MaterialApp(
       title: 'QuizU',
       themeMode: ThemeMode.light,

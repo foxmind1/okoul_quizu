@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:phone_number/phone_number.dart' as pn;
-import 'package:okoul_quizu/features/login/otp.dart';
+import 'package:okoul_quizu/features/home/views/home_page_nav_bar.dart';
+import 'package:okoul_quizu/services/api_services.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class NamePage extends StatelessWidget {
+  const NamePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     final formKey = GlobalKey<FormState>();
-    String completeNumber = '';
+    final controller = TextEditingController();
+    final ThemeData theme = Theme.of(context);
 
     return Scaffold(
       body: Padding(
@@ -45,51 +44,40 @@ class LoginPage extends StatelessWidget {
                   ),
                   Flexible(
                     child: Text(
-                      'Log in and start your journey now!',
+                      "What's your name?",
                       style: theme.textTheme.bodyText1,
                       textAlign: TextAlign.center,
                     ),
                   ),
                   Form(
                     key: formKey,
-                    child: IntlPhoneField(
-                      autovalidateMode: AutovalidateMode.disabled,
-                      validator: (p0) async {
-                        return await pn.PhoneNumberUtil()
-                                .validate(p0!.completeNumber)
-                            ? null
-                            : 'Invalid Mobile Number';
-                      },
+                    child: TextFormField(
+                      controller: controller,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) =>
+                          value!.trim() == '' ? 'Name can\'t be empty' : null,
                       decoration: const InputDecoration(
-                        hintText: 'Phone Number',
-                        counterText: '',
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(),
-                        ),
+                        border: OutlineInputBorder(),
+                        hintText: 'Name',
                       ),
-                      initialCountryCode: 'SA',
-                      showCursor: false,
-                      onChanged: (phone) {
-                        debugPrint(phone.completeNumber);
-                        completeNumber = phone.completeNumber;
-                      },
                     ),
                   ),
                   ElevatedButton.icon(
-                    icon: const Icon(Icons.navigate_next),
-                    onPressed: () async {
-                      bool isValid = formKey.currentState!.validate();
+                    icon: const Icon(Icons.arrow_forward_rounded),
+                    onPressed: () {
+                      bool isNotEmpty = formKey.currentState!.validate();
 
-                      if (isValid) {
-                        Navigator.of(context).push(
+                      if (isNotEmpty) {
+                        ApiServices.insertName(controller.text);
+
+                        Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
-                            builder: (context) =>
-                                OtpPage(phoneNumber: completeNumber),
-                          ),
+                              builder: (context) => const HomePageNavBar()),
+                          (Route<dynamic> route) => false,
                         );
                       }
                     },
-                    label: const Text("Start!"),
+                    label: const Text("Lets Go!"),
                   ),
                 ],
               ),

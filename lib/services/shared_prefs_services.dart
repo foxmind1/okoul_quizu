@@ -1,24 +1,25 @@
 import 'dart:convert';
 
 import 'package:okoul_quizu/main.dart';
-import 'package:okoul_quizu/constants.dart';
+import 'package:okoul_quizu/constants/constants.dart';
 
 class SharedPrefsServices {
-  bool get getShowHome =>
+  static bool get getShowHome =>
       preferences.getBool(Constants.prefsShowHomeKey) ?? false;
-  set setShowHome(bool value) =>
+  static set setShowHome(bool value) =>
       preferences.setBool(Constants.prefsShowHomeKey, value);
 
-  String get getToken => preferences.getString(Constants.prefsTokenKey) ?? "";
-  set setToken(String value) =>
+  static String get getToken =>
+      preferences.getString(Constants.prefsTokenKey) ?? "";
+  static set setToken(String value) =>
       preferences.setString(Constants.prefsTokenKey, value);
 
-  List<String> get getUserScore =>
+  static List<String> get getUserScore =>
       preferences.getStringList(Constants.prefsUserScoreKey) ?? [];
-  set setUserScore(List<String> value) =>
+  static set setUserScore(List<String> value) =>
       preferences.setStringList(Constants.prefsUserScoreKey, value);
 
-  void saveLocalUserScore(int currentQuizScore) {
+  static void saveLocalUserScore(int currentQuizScore) {
     DateTime now = DateTime.now();
     DateTime date = DateTime(now.year, now.month, now.day);
 
@@ -33,7 +34,7 @@ class SharedPrefsServices {
     setUserScore = currentScores;
   }
 
-  void resetPrefs() {
+  static void resetPrefs() {
     preferences.remove(Constants.prefsTokenKey);
     preferences.remove(Constants.prefsUserScoreKey);
     preferences.remove(Constants.prefsShowHomeKey);

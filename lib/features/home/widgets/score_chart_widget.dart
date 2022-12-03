@@ -11,7 +11,7 @@ class ScoreChart extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
 
-    var scoreData = SharedPrefsServices().getUserScore;
+    var scoreData = SharedPrefsServices.getUserScore;
     double inc = 0;
     List listOfScores = [];
 
